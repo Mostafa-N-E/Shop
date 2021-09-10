@@ -1,5 +1,9 @@
+from decimal import Decimal
+
 from django.db import models
 from django.urls import reverse
+from django.core.validators import MinValueValidator, MaxValueValidator
+
 
 def product_image_path_main(instance, filename):
     return f"products/main/{instance.pk}/{filename}"
@@ -38,6 +42,7 @@ class Product(models.Model):
     image_main = models.ImageField(upload_to = product_image_path_main, blank = True, verbose_name = "Product Preview")
     created = models.DateTimeField(auto_now_add = True)
     updated = models.DateTimeField(auto_now = True)
+    discount = models.PositiveIntegerField(default=0, validators=[MinValueValidator(0), MaxValueValidator(100)])
 
     class Meta:
         ordering = ['name']
@@ -51,7 +56,8 @@ class Product(models.Model):
     def get_absolute_url(self):
         return reverse('shop:product_detail', args=[self.id, self.slug])
 
-
+    def get_total_cost(self):
+        return self.price - self.price * (self.discount / Decimal('100'))
 
 class ProductImage(models.Model):
     product = models.ForeignKey(Product, related_name = 'product', verbose_name = "Product", on_delete = models.PROTECT)
