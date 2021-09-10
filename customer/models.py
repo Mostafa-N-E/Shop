@@ -15,7 +15,7 @@ class Customer(User):
     address = models.CharField(verbose_name='Address', max_length=250, null=True, blank=True)  #
     postal_code = models.CharField(verbose_name='Postal Code', max_length=20, null=True, blank=True)   #
     city = models.CharField(verbose_name='City', max_length=100, null=True, blank=True)   #
-    orders = models.ManyToManyField(OrderItem,verbose_name='Customer orders', related_name='customer_orders', null=True, blank=True)
+    # orders = models.ManyToManyField(OrderItem,verbose_name='Customer orders', related_name='customer_orders', null=True, blank=True)
 
     def register(self):
         self.save()

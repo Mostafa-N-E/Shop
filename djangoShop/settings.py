@@ -37,6 +37,16 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # my app
+    'accounts',
+    'product',
+    'order',
+    'payment',
+    'customer',
+    'cupon',
+    'cart',
+
 ]
 
 MIDDLEWARE = [
@@ -80,6 +90,17 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'Shop',
+#         'USER': 'mostafa',
+#         'PASSWORD': 'Mn@2520175028',
+#         'HOST': 'localhost',
+#         'PORT': '5432',
+#     }
+# }
 
 
 # Password validation
