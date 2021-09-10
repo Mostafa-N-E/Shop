@@ -1,6 +1,6 @@
 from django.db import models
 from product.models import Product
-from customer.models import Customer
+from member.models import Customer
 from cupon.models import Cupon
 from decimal import Decimal
 
