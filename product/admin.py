@@ -1,9 +1,11 @@
-from django.contrib import admin
+from gettext import ngettext
+
+from django.contrib import admin, messages
 
 # Register models.
 
 from django.contrib import admin
-from .models import Brand, Category, Product, ProductImage
+from .models import Category, Product, ProductImage
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
