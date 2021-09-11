@@ -3,34 +3,66 @@
 <!DOCTYPE html>
 <html lang="en">
 
+{#<head>#}
+{#    <meta charset="utf-8">#}
+{#    <meta content="width=device-width, initial-scale=1.0" name="viewport">#}
+{##}
+{#    <title>MyResume Bootstrap Template - Index</title>#}
+{#    <meta content="" name="description">#}
+{#    <meta content="" name="keywords">#}
+{##}
+{#    <!-- Favicons -->#}
+{#    <link href="{% static 'img/favicon.png' %}" rel="icon">#}
+{#    <link href="{% static 'img/apple-touch-icon.png' %}" rel="apple-touch-icon">#}
+{##}
+{#    <!-- Google Fonts -->#}
+{#    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"#}
+{#          rel="stylesheet">#}
+{##}
+{#    <!-- Vendor CSS Files -->#}
+{#    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"#}
+{#          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">#}
+{##}
+{#    <!-- =======================================================#}
+{#    * Template Name: MyResume - v2.2.1#}
+{#    * Template URL: https://bootstrapmade.com/free-html-bootstrap-template-my-resume/#}
+{#    * Author: BootstrapMade.com#}
+{#    * License: https://bootstrapmade.com/license/#}
+{#    ======================================================== -->#}
+{#</head>#}
 <head>
-    <meta charset="utf-8">
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>MyResume Bootstrap Template - Index</title>
-    <meta content="" name="description">
-    <meta content="" name="keywords">
+  <title>MyResume Bootstrap Template - Index</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
 
-    <!-- Favicons -->
-    <link href="{% static 'img/favicon.png' %}" rel="icon">
-    <link href="{% static 'img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+  <!-- Favicons -->
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
-          rel="stylesheet">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
-    <!-- Vendor CSS Files -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/icofont/icofont.min.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/boxicons/css/boxicons.min.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/venobox/venobox.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/owl.carousel/assets/owl.carousel.min.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/aos/aos.css' %}" rel="stylesheet">
 
-    <!-- =======================================================
-    * Template Name: MyResume - v2.2.1
-    * Template URL: https://bootstrapmade.com/free-html-bootstrap-template-my-resume/
-    * Author: BootstrapMade.com
-    * License: https://bootstrapmade.com/license/
-    ======================================================== -->
+  <!-- Template Main CSS File -->
+  <link href="{% static 'css/style.css' %}" rel="stylesheet">
+
+  <!-- =======================================================
+  * Template Name: MyResume - v2.2.1
+  * Template URL: https://bootstrapmade.com/free-html-bootstrap-template-my-resume/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
 </head>
-
 <body>
 
 <!-- ======= Mobile nav toggle button ======= -->
@@ -44,6 +76,11 @@
             <li class="active">
                 <a href="#hero">
                     <i class="bx bx-home"></i> <span>Home</span>
+                </a>
+            </li>
+            <li class="active">
+                <a href="#products">
+                    <i class="bx bx-server"></i> <span>Product</span>
                 </a>
             </li>
             <li>
@@ -74,7 +111,9 @@
 <main id="main">
 
     <!-- ======= Portfolio Section ======= -->
-    {% block products %}   {% endblock %}
+{#    {% block products %}   {% endblock %}#}
+    {% include 'product/products.html' %}
+
     <!-- End Portfolio Section -->
 
 
@@ -187,16 +226,52 @@
 <div id="preloader"></div>
 
 <!-- Vendor JS Files -->
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-        crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-        crossorigin="anonymous"></script>
+{#<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"#}
+{#        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"#}
+{#        crossorigin="anonymous"></script>#}
+{#<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"#}
+{#        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"#}
+{#        crossorigin="anonymous"></script>#}
+{#<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"#}
+{#        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"#}
+{#        crossorigin="anonymous"></script>#}
+<script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+  <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'vendor/jquery.easing/jquery.easing.min.js' %}"></script>
+  <script src="{% static 'vendor/php-email-form/validate.js' %}"></script>
+  <script src="{% static 'vendor/waypoints/jquery.waypoints.min.js' %}"></script>
+  <script src="{% static 'vendor/counterup/counterup.min.js' %}"></script>
+  <script src="{% static 'vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
+  <script src="{% static 'vendor/venobox/venobox.min.js' %}"></script>
+  <script src="{% static 'vendor/owl.carousel/owl.carousel.min.js' %}"></script>
+  <script src="{% static 'vendor/typed.js/typed.min.js' %}"></script>
+  <script src="{% static 'vendor/aos/aos.js' %}"></script>
 
+<script src="{% static 'js/main.js' %}"></script>
 </body>
 
 </html>
+
+
+{#<style type="text/css" data-typed-js-css="true">#}
+{#        .typed-cursor{#}
+{#          opacity: 1;#}
+{#        }#}
+{#        .typed-cursor.typed-cursor--blink{#}
+{#          animation: typedjsBlink 0.7s infinite;#}
+{#          -webkit-animation: typedjsBlink 0.7s infinite;#}
+{#                  animation: typedjsBlink 0.7s infinite;#}
+{#        }#}
+{#        @keyframes typedjsBlink{#}
+{#          50% { opacity: 0.0; }#}
+{#        }#}
+{#        @-webkit-keyframes typedjsBlink{#}
+{#          0% { opacity: 1; }#}
+{#          50% { opacity: 0.0; }#}
+{#          100% { opacity: 1; }#}
+{#        }#}
+{#      </style>#}
+
+
+
+</body>
