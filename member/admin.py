@@ -7,5 +7,5 @@ from .models import Customer
 @admin.register(Customer)
 class CustomerAdmin(admin.ModelAdmin):
     list_display = ['first_name', 'last_name', ]
-    list_editable = ['address','postal_code','city',]
+    # list_editable = ['address','postal_code','city',]
     search_fields = ['phone_number', ]
