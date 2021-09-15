@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views import generic
 
-from .models import Product, Category
+from .models import Product, Category, ProductImage
 
 class Products(generic.ListView):
     model = Product
@@ -17,5 +17,9 @@ class Products(generic.ListView):
 
 class ProductDetail(generic.DetailView):
     model = Product
-    template_name = 'product/product_detail_m.html'
-    context_object_name = "product"
+
+    def get(self, request, *args, **kwargs):
+        product = Product.objects.get(pk=self.kwargs['pk'])
+        product_images = ProductImage.objects.filter(product=product)
+        context = {'product': product, 'product_images':product_images,}
+        return render(request, 'product/product_detail_m.html', context)

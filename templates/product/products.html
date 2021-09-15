@@ -34,12 +34,15 @@
                 <h2>{{ product.name }}</h2>
                 <p>{{ product.category }}</p>
                 <div class="portfolio-links">
-                  <a href="{{ product.image_main.url }}" data-gall="portfolioGallery" class="venobox" title="{{ product }}App 1">
+                  <a href="{{ product.image_main.url }}" data-gall="productGallery" class="venobox" title="{{ product }}">
                       <i class="bx bx-plus"></i>
                   </a>
-                  <a href="{% url 'products:product_detail' product.id %}" data-gall="portfolioDetailsGallery" data-vbtype="iframe" class="venobox" title="{{ product }}">
+                  <a href="{% url 'products:product_detail' product.id %}" >
                       <i class="bx bx-link"></i>
                   </a>
+{#                    <a href="{% url 'products:product_detail' product.id %}" data-vbtype="iframe" class="venobox" title="{{ product }}">#}
+{#                      <i class="bx bx-link"></i>#}
+{#                  </a>#}
                 </div>
               </div>
             </div>
