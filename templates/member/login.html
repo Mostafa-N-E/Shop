@@ -63,6 +63,7 @@
             </div>
         </div>
     </section>
+    <a id="HOME" href="{% url 'products:show_products' %}" type=""> </a>
 {% endblock %}
 
 {% block CSS %}
@@ -78,15 +79,12 @@
     <script>
         // login with password
         $("#login_form").submit(function (e) {
-            e.preventDefault(); // avoid to execute the actual submit of the form.
+            e.preventDefault();
             let form = $(this);
             let url = form.attr('action');
             let csrf = form.attr('value');
-            console.log('csrf');
             let password = $('#password').val()
-            console.log(password)
             let username = $('#username').val()
-            console.log(username)
 
             $.ajax({
                 type: "POST",
@@ -97,17 +95,20 @@
                     'password': password
                 },
                 url: "/api/rest-auth/login/",
-                success: function (data) {
-                    alert(data);
+                success: function () {
+                    let href = $('#HOME').attr('href')
+                    window.location = href
+                    //$("#HOME").load(href);
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    console.log(xhr.status)
+                    console.log(xhr.responseText)
+                    alert(xhr.responseText)
+                    console.log(ajaxOptions)
+                    console.log(thrownError)
                 }
             });
         });
-
-        {#$.getJSON("http://localhost:8080/restws/json/product/get?callback=?",#}
-        {#    function (data) {#}
-        {#        alert(data);#}
-        {#    });#}
-
     </script>
 {% endblock %}
 
