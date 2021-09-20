@@ -5,13 +5,13 @@ from .models import Product, Category, ProductImage
 
 class Products(generic.ListView):
     model = Product
-    template_name = 'base.html'
+    template_name = 'home.html'
 
     def get(self, request, *args, **kwargs):
         products = Product.objects.all()
         categories = Category.objects.all()
         context = {'products': products, 'categories':categories,}
-        return render(request, 'base.html', context)
+        return render(request, 'home.html', context)
 
 
 

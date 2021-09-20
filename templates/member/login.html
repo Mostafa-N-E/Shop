@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} Login {% endblock %}
+
+{% block content %}
+    <section class="ftco-section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-6 text-center mb-5">
+                    {#					<h2 class="heading-section">Login #01</h2>#}
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-md-7 col-lg-5">
+                    <div class="login-wrap p-4 p-md-5">
+                        <div class="icon d-flex align-items-center justify-content-center">
+                            <span class="fa fa-user-o"></span>
+                        </div>
+                        <h3 class="text-center mb-4">Sign In</h3>
+
+
+                        {#                    {% load rest_framework %}#}
+                        {##}
+                        {#                    <form action="" method="POST">#}
+                        {#                        {% csrf_token %}#}
+                        {#                        {% render_form serializer %}#}
+                        {#                        {{ serilizer }}#}
+                        {##}
+                        {#                        <input type="submit" value="Save">#}
+                        {#                    </form>#}
+                        {##}
+                        <form action="#" id="login_form" class="login" method="post" value="{{ csrf_token }}">
+                            <div class="form-group">
+                                <input id="username" type="text" class="form-control rounded-left"
+                                       placeholder="Username"
+                                       required>
+                            </div>
+                            <div class="form-group d-flex">
+                                <input id="password" type="password" class="form-control rounded-left"
+                                       placeholder="Password" required>
+                            </div>
+                            <div class="form-group">
+                                <button id="login-submit" type="submit"
+                                        class="form-control btn btn-primary rounded submit px-3">Login
+                                </button>
+                            </div>
+
+                        </form>
+                        <div class="form-group d-md-flex">
+                            <div class="w-50">
+                                <label class="checkbox-wrap checkbox-primary">Remember Me
+                                    <input type="checkbox" checked>
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                            <div class="w-50 text-md-right">
+                                <a href="#">Forgot Password</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block CSS %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{% static 'css/login/style.css' %}">
+{% endblock %}
+
+{% block script %}
+    <script src="{% static 'js/login/jquery.min.js' %}"></script>
+    <script src="{% static 'js/login/popper.js' %}"></script>
+    <script src="{% static 'js/login/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/login/main.js' %}"></script>
+    <script>
+        // login with password
+        $("#login_form").submit(function (e) {
+            e.preventDefault(); // avoid to execute the actual submit of the form.
+            let form = $(this);
+            let url = form.attr('action');
+            let csrf = form.attr('value');
+            console.log('csrf');
+            let password = $('#password').val()
+            console.log(password)
+            let username = $('#username').val()
+            console.log(username)
+
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                data: {
+                    'csrfmiddlewaretoken': csrf,
+                    'username': username,
+                    'password': password
+                },
+                url: "/api/rest-auth/login/",
+                success: function (data) {
+                    alert(data);
+                }
+            });
+        });
+
+        {#$.getJSON("http://localhost:8080/restws/json/product/get?callback=?",#}
+        {#    function (data) {#}
+        {#        alert(data);#}
+        {#    });#}
+
+    </script>
+{% endblock %}
+
+
+
