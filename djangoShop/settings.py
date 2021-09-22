@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 import os
 from pathlib import Path
 
+# from django.utils.translation import gettext_lazy as _
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -104,8 +106,8 @@ DATABASES = {
 #         'ENGINE': 'django.db.backends.postgresql_psycopg2',
 #         'NAME': 'Shop',
 #         'USER': 'mostafa',
-#         'PASSWORD': 'Mn@2520175028',
-#         'HOST': 'localhost',
+#         'PASSWORD': '123456',
+#         'HOST': '0.0.0.0',
 #         'PORT': '5432',
 #     }
 # }
@@ -142,6 +144,12 @@ USE_L10N = True
 
 USE_TZ = True
 
+LANGUAGES = [
+    ('fa', 'Persian'),
+    ('en', 'English'),
+    # ('fa', _('Persian')),
+    # ('en', _('English')),
+]
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
@@ -175,5 +183,5 @@ SITE_ID = 1
 # JWT_AUTH_COOKIE = 'my-app-auth'
 # JWT_AUTH_REFRESH_COOKIE = 'my-refresh-token'
 
-EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
-
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'

@@ -24,10 +24,10 @@
                                        placeholder="Username"
                                        required>
                             </div>
-                            {#                        <div class="form-group d-flex">#}
-                            {#                            <input id="email" type="email" class="form-control rounded-left" placeholder="Email"#}
-                            {#                                   required>#}
-                            {#                        </div>#}
+                            <div class="form-group d-flex">
+                                <input id="email" type="email" class="form-control rounded-left" placeholder="Email"
+                                       required>
+                            </div>
                             <div class="form-group d-flex">
                                 <input id="password1" type="password" class="form-control rounded-left"
                                        placeholder="Password" required>
@@ -71,7 +71,7 @@
             let url = form.attr('action');
             let csrf = form.attr('value');
             let username = $('#username').val()
-            //let email = $('#email').val()
+            let email = $('#email').val()
             let password1 = $('#password1').val()
             let password2 = $('#password2').val()
 
@@ -81,7 +81,7 @@
                 data: {
                     'csrfmiddlewaretoken': csrf,
                     'username': username,
-                    //'email': email,
+                    'email': email,
                     'password1': password1,
                     'password2': password2
                 },
