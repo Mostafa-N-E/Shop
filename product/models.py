@@ -3,6 +3,10 @@ from decimal import Decimal
 from django.db import models
 from django.urls import reverse
 from django.core.validators import MinValueValidator, MaxValueValidator
+from member.models import Customer
+
+class IPAddress(models.Model):
+    ip_address = models.GenericIPAddressField(verbose_name='ip address')
 
 
 def product_image_path_main(instance, filename):
@@ -11,10 +15,13 @@ def product_image_path_main(instance, filename):
 def image_path(instance, filename):
     return f"products/{instance.product.id}/{filename}"
 
+def category_image_path(instance, filename):
+    return f"category/{instance.pk}/{filename}"
 
 class Category(models.Model):
     name = models.CharField(max_length = 20, db_index = True, verbose_name = "Name")
     slug = models.SlugField(max_length = 70, db_index = True)
+    image = models.ImageField(upload_to = category_image_path, blank = True, verbose_name = "Product Preview")
 
     class Meta:
         ordering = ['name']
@@ -43,6 +50,8 @@ class Product(models.Model):
     created = models.DateTimeField(auto_now_add = True)
     updated = models.DateTimeField(auto_now = True)
     discount = models.PositiveIntegerField(default=0, validators=[MinValueValidator(0), MaxValueValidator(100)])
+    hits = models.ManyToManyField(IPAddress, through="ProductHits", null=True, blank=True, related_name='visits')
+    # like = models.ManyToManyField(Customer, null=True, blank=True, related_name='like')
 
     class Meta:
         ordering = ['name']
@@ -73,3 +82,9 @@ class ProductImage(models.Model):
 
     def __str__(self):
         return self.product.name + "_image"
+
+
+class ProductHits(models.Model):
+    product = models.ForeignKey(Product, on_delete = models.CASCADE)
+    ip_address = models.ForeignKey(IPAddress,  on_delete = models.CASCADE)
+    created = models.DateTimeField(auto_now_add = True)

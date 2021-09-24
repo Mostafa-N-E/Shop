@@ -1,0 +1,156 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}  {% endblock %}
+
+{% block account_nav-menu %}
+    <div style="margin-top: 90px;">
+        {% if request.user.is_authenticated %}
+            <li class="active">
+                <a href="{% url 'customer_login' %}">
+                    <i class='bx bxs-user-account'></i><span>{% translate 'Account' %}</span>
+                </a>
+            </li>
+        {% else %}
+            <li class="">
+                <a href="#">
+                    <i class='bx bxs-user-account'></i><span>{% translate 'Account' %}</span>
+                </a>
+            </li>
+        {% endif %}
+    </div>
+
+{% endblock %}
+
+{% block shop_nav-menu %}
+    <div style="margin-bottom: 90px;">
+        <li class="active">
+            <a href="{% url 'customer_login' %}">
+                <i class='bx bx-basket'></i><span>{% translate 'Basket' %}</span>
+            </a>
+        </li>
+    </div>
+{% endblock %}
+
+{% block pagenaiton_nav-menu %}
+    <div style="margin-top: 240px;margin-bottom: 240px;">
+        <li class="active ">
+            <a href="{% url 'products:show_products' %}">
+                <i class="bx bx-home"></i> <span>{% translate 'Home' %}</span>
+            </a>
+        </li>
+    </div>
+{% endblock %}
+
+
+{% block products %}
+    <section id="products" class="portfolio section-bg" style="margin-bottom: 500px">
+        <div class="container" data-aos="fade-up">
+
+            <div class="section-title">
+                <h2>Porducts in {{ category.name }}</h2>
+            </div>
+
+            <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="200">
+                {% for product in products_list %}
+
+                    <div class="col-lg-4 col-md-6 portfolio-item {{ product.category }}">
+                        <div class="portfolio-wrap">
+                            <img src="{{ product.image_main.url }}" class="img-fluid" alt="">
+                            <div class="portfolio-info">
+                                <h2>{{ product.name }}</h2>
+                                <p>{{ product.category }}</p>
+                                <div class="portfolio-links">
+                                    <a href="{{ product.image_main.url }}" data-gall="productGallery" class="venobox"
+                                       title="{{ product }}">
+                                        <i class="bx bx-plus"></i>
+                                    </a>
+                                    <a href="{% url 'products:product_detail' product.id %}">
+                                        <i class="bx bx-link"></i>
+                                    </a>
+
+                                    <a id="{{ product.id }}" onclick="basket(this.id)" href="{% url 'customer_login' %}"
+                                            {% if request.user.id in cart %}
+                                       style="color: red;"
+                                            {% endif %}>
+                                        <i class='bx bx-basket'></i>
+                                    </a>
+                                    {#                    <a href="{% url 'products:product_detail' product.id %}" data-vbtype="iframe" class="venobox" title="{{ product }}">#}
+                                    {#                      <i class="bx bx-link"></i>#}
+                                    {#                  </a>#}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                {% endfor %}
+
+            </div>
+            <div class="pagination d-flex justify-content-between mb-3">
+                {% if products_list.has_previous %}
+                    <div class="p-5">
+                        <a href="{% url 'products:show_category_products' category.slug %}?page=1">
+                            <button type="button" class="btn btn-outline-primary" style="border-radius: 25px">
+                                &laquo; first
+                            </button>
+                        </a>
+                        <a href="{% url 'products:show_category_products' category.slug %}?page={{ products_list.previous_page_number }}">
+                            <button type="button" class="btn btn-outline-primary" style="border-radius: 25px;">
+                                previous
+                            </button>
+                        </a>
+                    </div>
+                {% endif %}
+
+                <div class="p-5">
+                    Page {{ products_list.number }} of {{ products_list.paginator.num_pages }}.
+                </div>
+
+                {% if products_list.has_next %}
+                    <div class="p-5">
+                        <a href="{% url 'products:show_category_products' category.slug %}?page={{ products_list.next_page_number }}">
+                            <button type="button" class="btn btn-outline-primary" style="border-radius: 25px; ">
+                                next
+                            </button>
+                        </a>
+                        <a href="{% url 'products:show_category_products' category.slug %}?page={{ products_list.paginator.num_pages }}">
+                            <button type="button" class="btn btn-outline-primary" style="border-radius: 25px;">
+                                last &raquo;
+                            </button>
+                        </a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <script>
+            // add basket
+            function basket(post_id) {
+
+                $.ajax({
+                    type: "POST",
+                    // dataType: "json",
+                    data: {
+                        'post_id': post_id
+                    },
+                    url: "/api/rest-auth/login/",
+                    success: function () {
+                        //let href = $('#HOME').attr('href')
+                        //window.location = href
+                        // $("#HOME").load(href);
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        alert(xhr.responseText)
+                        // console.log(xhr.status)
+                        // console.log(ajaxOptions)
+                        // console.log(thrownError)
+                    }
+                });
+            };
+        </script>
+
+
+    </section><!-- End products Section -->
+{% endblock %}
+

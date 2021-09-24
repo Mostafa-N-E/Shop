@@ -5,7 +5,7 @@
 {% block title %} Home {% endblock %}
 
 {% block account_nav-menu %}
-    <div style="margin-top: 110px;">
+    <div style="margin-top: 90px;">
         {% if request.user.is_authenticated %}
             <li class="active">
                 <a href="{% url 'customer_login' %}">
@@ -24,7 +24,7 @@
 {% endblock %}
 
 {% block shop_nav-menu %}
-    <div style="margin-bottom: 110px;">
+    <div style="margin-bottom: 90px;">
         <li class="active">
             <a href="{% url 'customer_login' %}">
                 <i class='bx bx-basket'></i><span>{% translate 'Basket' %}</span>
@@ -38,6 +38,11 @@
         <li class="active ">
             <a href="#hero">
                 <i class="bx bx-home"></i> <span>{% translate 'Home' %}</span>
+            </a>
+        </li>
+        <li class="">
+            <a href="#category">
+                <i class="bx bx-server"></i> <span>{% translate 'Category' %}</span>
             </a>
         </li>
         <li class="">
@@ -74,6 +79,12 @@
     </section>
 {% endblock %}
 <!-- End Hero -->
+
+<!-- ======= category Section ======= -->
+{% block category %}
+    {% include 'product/category.html' %}
+{% endblock %}
+<!-- End category Section -->
 
 <!-- ======= product Section ======= -->
 {% block products %}
