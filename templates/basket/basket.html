@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}  {% endblock %}
+
+{% block account_nav-menu %}
+    <div style="margin-top: 90px;">
+        {% if request.user.is_authenticated %}
+            <li class="active">
+                <a href="{% url 'customer_login' %}">
+                    <i class='bx bxs-user-account'></i><span>{% translate 'Account' %}</span>
+                </a>
+            </li>
+        {% else %}
+            <li class="">
+                <a href="#">
+                    <i class='bx bxs-user-account'></i><span>{% translate 'Account' %}</span>
+                </a>
+            </li>
+        {% endif %}
+    </div>
+
+{% endblock %}
+
+{% block shop_nav-menu %}
+    <div style="margin-bottom: 90px;">
+        <li class="active">
+            <a href="{% url 'customer_login' %}">
+                <i class='bx bx-basket'></i><span>{% translate 'Basket' %}</span>
+            </a>
+        </li>
+    </div>
+{% endblock %}
+
+{% block pagenaiton_nav-menu %}
+    <div style="margin-top: 240px;margin-bottom: 240px;">
+        <li class="active ">
+            <a href="{% url 'products:show_products' %}">
+                <i class="bx bx-home"></i> <span>{% translate 'Home' %}</span>
+            </a>
+        </li>
+    </div>
+{% endblock %}
+
+
+{% block basket %}
+    <section id="basket" class="portfolio section-bg" style="margin-bottom: 500px">
+        <div class="container" data-aos="fade-up">
+
+            <div class="section-title">
+                <img width="300px" style="margin-bottom: 4vh" src="{% static 'img/basket.svg' %}">
+                <h2>Your Basket</h2>
+            </div>
+
+            <div class="row " data-aos="fade-up" data-aos-delay="200">
+                {% for item in basket %}
+                    <div id="card-{{ item.id }}" class="col-lg-6 col-md-6 d-flex align-items-stretch ">
+                        <div class="card mb-5">
+                            <div class="card-img-top">
+                                <img src="{{ item.image_main.url }}" class="img-thumbnail " alt="...">
+                            </div>
+                            <div class="card-body">
+                                <div class="card-columns">
+                                    <h4>Product name : </h4>
+                                    <p><a href="{% url 'products:product_detail' item.id %}">{{ item.name }}</a></p>
+                                </div>
+                                <br>
+                                <h4>Product price : </h4>
+                                <p>{{ item.price }}</p>
+                                <br>
+                                <h4>Product name : </h4>
+                                <p>{{ item.name }}</p>
+                            </div>
+                            <div class="card-footer">
+                                <a id="{{ item.id }}" onclick="basket_remove(this.id)" style="color: red;">
+                                    <button type="button" class="btn btn-outline-danger" style="border-radius: 25px; ">
+                                        <i class='bx bxs-trash'></i>
+                                    </button>
+                                    {% with id=item.id %}
+                                    {{ objects.basket.}}
+                                    {% endwith %}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <a id="BASKET" href="{% url 'basket:basket' %}" type=""> </a>
+
+        <script>
+            // remove basket
+            function basket_remove(product_id) {
+                $.ajax({
+                    type: "GET",
+                    {#url: "/basket/?action=add&product_id=" + product_id,#}
+                    url: "/basket/remove/?product_id=" + product_id,
+
+                    success: function () {
+                        $('#card')
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        alert(xhr.responseText)
+                        console.log(xhr.status)
+                        console.log(ajaxOptions)
+                        console.log(thrownError)
+                    }
+                });
+            };
+        </script>
+
+    </section><!-- End products Section -->
+{% endblock %}
+

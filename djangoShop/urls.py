@@ -19,16 +19,19 @@ from djangoShop import settings
 from django.conf.urls.static import static
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from dj_rest_auth.views import PasswordResetConfirmView
+
 # from rest_framework.authtoken import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('products/', include('product.urls')),
     path('member/', include('member.urls')),
+    path('basket/', include('basket.urls')),
     # path('api-token-auth/', views.obtain_auth_token)
     path('api/rest-auth/', include('dj_rest_auth.urls')),
     path('api/rest-auth/registration/', include('dj_rest_auth.registration.urls')),
-    path('api/rest-auth/password/reset/confirm/<uidb64>/<tocken>/', PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
+    path('api/rest-auth/password/reset/confirm/<uidb64>/<tocken>/', PasswordResetConfirmView.as_view(),
+         name='password_reset_confirm'),
 
 ]
 

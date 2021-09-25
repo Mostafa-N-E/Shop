@@ -54,14 +54,13 @@
 <!-- ======= Header ======= -->
 <header id="header" class="d-flex flex-column justify-content-center">
     <nav class="nav-menu ">
-        <ul>
+        <ul class="">
             <!-- ======= login / logout ======= -->
             <div>
                 {% if request.user.is_authenticated %}
                     <li class="active">
-                        <a href="{% url 'customer_login' %}">
-                            <i class='bx bx-log-out'></i>
-                            <span>{% translate 'Logout' %}</span>
+                        <a id="logout" href="#" onclick="logout()" name="{{ csrf_token }}">
+                            <i class='bx bx-log-out'></i><span>{% translate 'Logout' %}</span>
                         </a>
                     </li>
                 {% else %}
@@ -124,6 +123,12 @@
     {% endblock %}
     <!-- End content Section -->
 
+    <!-- ======= basket Section ======= -->
+    {% block basket %}
+
+    {% endblock %}
+    <!-- End basket Section -->
+
     <!-- ======= Contact Section ======= -->
     {% block Contact %}
 
@@ -157,6 +162,7 @@
             <a href="https://bootstrapmade.com/">{% translate 'Mostafa Nanari' %}</a>
         </div>
     </div>
+    <a id="HOME" href="{% url 'products:show_products' %}" type=""> </a>
 </footer><!-- End Footer -->
 
 <a href="#" class="back-to-top"><i class="bx bx-up-arrow-alt"></i></a>
@@ -188,7 +194,30 @@
 <script src="{% static 'vendor/aos/aos.js' %}"></script>
 
 <script src="{% static 'js/main.js' %}"></script>
+<script>
+       // remove basket
+        function logout() {
+            let csrf = $('#logout').attr('name');
+            $.ajax({
+                type: "POST",
+                data: {
+                    'csrfmiddlewaretoken': csrf,
+                },
+                url:"/api/rest-auth/logout/",
 
+                success: function () {
+                    let href = $('#HOME').attr('href')
+                    window.location = href
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert(xhr.responseText)
+                    console.log(xhr.status)
+                    console.log(ajaxOptions)
+                    console.log(thrownError)
+                }
+            });
+        };
+</script>
 </body>
 
 </html>

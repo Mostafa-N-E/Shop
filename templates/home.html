@@ -5,7 +5,7 @@
 {% block title %} Home {% endblock %}
 
 {% block account_nav-menu %}
-    <div style="margin-top: 90px;">
+    <div style="margin-top: 70px;">
         {% if request.user.is_authenticated %}
             <li class="active">
                 <a href="{% url 'customer_login' %}">
@@ -24,9 +24,9 @@
 {% endblock %}
 
 {% block shop_nav-menu %}
-    <div style="margin-bottom: 90px;">
+    <div style="margin-bottom: 70px;">
         <li class="active">
-            <a href="{% url 'customer_login' %}">
+            <a href="{% url 'basket:basket' %}">
                 <i class='bx bx-basket'></i><span>{% translate 'Basket' %}</span>
             </a>
         </li>
@@ -34,7 +34,7 @@
 {% endblock %}
 
 {% block pagenaiton_nav-menu %}
-    <div style="margin-top: 240px;margin-bottom: 240px;">
+    <div style="margin-top: 200px;margin-bottom: 200px;">
         <li class="active ">
             <a href="#hero">
                 <i class="bx bx-home"></i> <span>{% translate 'Home' %}</span>

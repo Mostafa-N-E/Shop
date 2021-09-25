@@ -51,7 +51,6 @@ INSTALLED_APPS = [
     'bootstrap4',
     'widget_tweaks',
     # my app
-    'accounts',
     'product',
     'order',
     'payment',
@@ -186,3 +185,8 @@ SITE_ID = 1
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+
+
+# Cart Session ID
+
+CART_SESSION_ID = 'cart'

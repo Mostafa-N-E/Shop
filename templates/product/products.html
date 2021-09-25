@@ -42,9 +42,9 @@
                                     <i class="bx bx-link"></i>
                                 </a>
 
-                                <a id="{{ product.id }}" onclick="basket(this.id)" href="{% url 'customer_login' %}"
+                                <a id="{{ product.id }}" onclick="basket_add(this.id)" href="#"
                                         {% if request.user.id in cart %}
-                                   style="color: red;"
+                                            style="color: red;"
                                         {% endif %}>
                                     <i class='bx bx-basket'></i>
                                 </a>
@@ -97,25 +97,17 @@
 
     <script>
         // add basket
-        function basket(post_id) {
-
+        function basket_add(product_id) {
             $.ajax({
-                type: "POST",
-                // dataType: "json",
-                data: {
-                    'post_id': post_id
-                },
-                url: "/api/rest-auth/login/",
+                type: "GET",
+                {#url: "/basket/?action=add&product_id=" + product_id,#}
+                url: "/basket/add/?product_id=" + product_id,
+
                 success: function () {
-                    //let href = $('#HOME').attr('href')
-                    //window.location = href
-                    // $("#HOME").load(href);
+                    alert("added")
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
                     alert(xhr.responseText)
-                    // console.log(xhr.status)
-                    // console.log(ajaxOptions)
-                    // console.log(thrownError)
                 }
             });
         };
