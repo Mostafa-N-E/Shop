@@ -135,13 +135,19 @@
     {% endblock %}
     <!-- End Contact Section -->
 
-</main><!-- End #main -->
-
-<!-- ======= content Section ======= -->
+    <!-- ======= profile Section ======= -->
     {% block profile %}
 
     {% endblock %}
-    <!-- End content Section -->
+    <!-- End profile Section -->
+
+    <!-- ======= order Section ======= -->
+    {% block order %}
+
+    {% endblock %}
+    <!-- End order Section -->
+
+</main><!-- End #main -->
 
 <!-- ======= Footer ======= -->
 <footer id="footer">
@@ -201,28 +207,28 @@
 
 <script src="{% static 'js/main.js' %}"></script>
 <script>
-       // remove basket
-        function logout() {
-            let csrf = $('#logout').attr('name');
-            $.ajax({
-                type: "POST",
-                data: {
-                    'csrfmiddlewaretoken': csrf,
-                },
-                url:"/api/rest-auth/logout/",
+    // remove basket
+    function logout() {
+        let csrf = $('#logout').attr('name');
+        $.ajax({
+            type: "POST",
+            data: {
+                'csrfmiddlewaretoken': csrf,
+            },
+            url: "/api/rest-auth/logout/",
 
-                success: function () {
-                    let href = $('#HOME').attr('href')
-                    window.location = href
-                },
-                error: function (xhr, ajaxOptions, thrownError) {
-                    alert(xhr.responseText)
-                    console.log(xhr.status)
-                    console.log(ajaxOptions)
-                    console.log(thrownError)
-                }
-            });
-        };
+            success: function () {
+                let href = $('#HOME').attr('href')
+                window.location = href
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert(xhr.responseText)
+                console.log(xhr.status)
+                console.log(ajaxOptions)
+                console.log(thrownError)
+            }
+        });
+    };
 </script>
 </body>
 

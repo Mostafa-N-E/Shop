@@ -8,21 +8,12 @@
 
 {% block account_nav-menu %}
     <div style="margin-top: 90px;">
-        {% if request.user.is_authenticated %}
-            <li class="active">
-                <a href="{% url 'customer_login' %}">
-                    <i class='bx bxs-user-account'></i><span>{% translate 'Account' %}</span>
-                </a>
-            </li>
-        {% else %}
-            <li class="">
-                <a href="#">
-                    <i class='bx bxs-user-account'></i><span>{% translate 'Account' %}</span>
-                </a>
-            </li>
-        {% endif %}
+        <li class="active">
+            <a href="">
+                <i class='bx bxs-archive-in' ></i><span>{% translate 'My orders' %}</span>
+            </a>
+        </li>
     </div>
-
 {% endblock %}
 
 {% block shop_nav-menu %}
@@ -88,6 +79,14 @@
                                 </li>
                             </ul>
                         </div>
+                    </div>
+                    <hr>
+                    <div class="d-flex justify-content-end">
+                        <a href="">
+                            <button type="button" class="btn btn-primary " style="border-radius: 25px;">
+                                Edit your profile
+                            </button>
+                        </a>
                     </div>
                 </div>
             </div>

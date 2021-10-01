@@ -1,0 +1,156 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+
+{% block account_nav-menu %}
+    <div style="margin-top: 90px;">
+        {% if request.user.is_authenticated %}
+            <li class="active">
+                <a href="{% url 'customer_profile' request.user.id %}">
+                    <i class='bx bxs-user-account'></i><span>{% translate 'Account' %}</span>
+                </a>
+            </li>
+        {% else %}
+            <li class="">
+                <a href="#">
+                    <i class='bx bxs-user-account'></i><span>{% translate 'Account' %}</span>
+                </a>
+            </li>
+        {% endif %}
+    </div>
+
+{% endblock %}
+
+{% block shop_nav-menu %}
+    <div style="margin-bottom: 90px;">
+        <li class="active">
+            <a href="{% url 'customer_login' %}">
+                <i class='bx bx-basket'></i><span>{% translate 'Basket' %}</span>
+            </a>
+        </li>
+    </div>
+{% endblock %}
+
+{% block pagenaiton_nav-menu %}
+    <div style="margin-top: 240px;margin-bottom: 240px;">
+        <li class="active ">
+            <a href="{% url 'products:show_products' %}">
+                <i class="bx bx-home"></i> <span>{% translate 'Home' %}</span>
+            </a>
+        </li>
+    </div>
+{% endblock %}
+
+
+{% block order %}
+    <section id="basket" class="portfolio section-bg" >
+        <div class="container" data-aos="fade-up">
+
+            <div class="section-title">
+                <img width="300px" style="margin-bottom: 4vh" src="{% static 'img/order.png' %}">
+                <h2>Order</h2>
+            </div>
+
+            <div class="card mb-5">
+                <div class="card-body content">
+                    <h3>Address</h3>
+                    <ul>
+                        <li>
+                            <strong>Address : </strong>{{ customer.address }}
+                        </li>
+                        <li>
+                            <strong>Postal code :</strong>{{ customer.postal_code }}
+                        </li>
+                        <li>
+                            <strong>city :</strong>{{ customer.city }}
+                        </li>
+                    </ul>
+                    <div class="d-flex justify-content-between mb-3">
+                        <div>
+                            <i class='bx bx-user-circle' style='color:#005cbd'></i>
+                            {{ customer.first_name }} {{ customer.last_name }}
+                        </div>
+                        <div>
+                            <a href="{% url 'customer_profile' request.user.id %}">
+                                <button type="button" class="btn btn-primary" style="border-radius: 25px;">
+                                    Change or edit the address
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card mb-5">
+                <div class="card-body content">
+
+                    <div class="mb-3">
+                        {% for item in basket %}
+                            <div>
+                                <a href="{% url 'products:product_detail' item.id %}">
+                                    <img src="{{ item.image_main.url }}" class="img-thumbnail " alt="..." width="170px">
+                                </a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <hr>
+                    <div class="d-flex justify-content-end">
+                        <a href="{% url 'basket:basket' %}">
+                            <button type="button" class="btn btn-primary " style="border-radius: 25px;">
+                                Edit your backet
+                            </button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+            <div class="card mb-5">
+                <div class="card-body content">
+                    <ul>
+                        <li>
+                            <strong>number of items : </strong>{{ products_num|get_number_of_items }}
+                        </li>
+                        <li>
+                            <strong>Total price of items :</strong>{{ price.get_total_price }}
+                        </li>
+                        <li>
+                            <strong>Total discount of items:</strong>{{ price.get_discount }}
+                        </li>
+                    </ul>
+                    <hr>
+                    <p class="text-center">
+                        Shipping cost will be calculated based on the address, time and method of your chosen shipment
+                        and will be added to this amount.
+                    </p>
+                    <div class="pagination d-flex justify-content-between mb-3">
+                        <div>
+                            Total price : {{ price.get_total_price_after_discount }}
+                        </div>
+                        <div>
+                            {% if request.user.is_authenticated %}
+                                <a href="">
+                                    <button type="button" class="btn btn-primary" style="border-radius: 25px;">
+                                        Continue the buying process
+                                    </button>
+                                </a>
+                            {% else %}
+                                <a href="{% url 'customer_login' %}">
+                                    <button type="button" class="btn btn-primary" style="border-radius: 25px;">
+                                        Continue the buying process
+                                    </button>
+                                </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section><!-- End products Section -->
+
+
+
+{% endblock %}
+
