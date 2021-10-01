@@ -24,7 +24,7 @@ class Basket(object):
         product_id = str(product.id)
         if product_id not in self.basket:
             # self.basket[product_id] = {'price': str(product.price),'color': color,'size': size}
-            self.basket[product_id] = {'object':product,'unit_price': str(product.price), 'number':1}
+            self.basket[product_id] = {'unit_price': str(product.price), 'number':1}
         else:
             self.basket[product_id]['number'] = self.basket[product_id]['number']+1
         self.save()
@@ -63,7 +63,8 @@ class Basket(object):
         return len(self.basket.values())
 
     def get_total_price(self):
-        return sum(Decimal(item['unit_price']*item['number']) for item in self.basket.values())
+        return sum(float(self.basket[str(id)]['unit_price'])*int(self.basket[str(id)]['number']) for id in self.basket.keys())
+        # return sum(Decimal(float(self.basket[str(id)]['unit_price'])*int(self.basket[str(id)]['number'])) for id in self.basket.keys())
 
     def clear(self):
         del self.session[settings.CART_SESSION_ID]
@@ -79,8 +80,10 @@ class Basket(object):
 
     def get_discount(self):
         if self.cupon:
-            return (self.cupon.discount / Decimal('100')) * self.get_total_price()
-        return Decimal('0')
+            return (self.cupon.discount / 100) * self.get_total_price()
+            # return (self.cupon.discount / Decimal('100')) * self.get_total_price()
+        return 0
+        # return Decimal('0')
 
     def get_total_price_after_discount(self):
         return self.get_total_price() - self.get_discount()
@@ -91,11 +94,12 @@ class BasketView(View):
 
     def get(self, request, *args, **kwargs):
         basket = Basket(request)
-        print("------------------------------------")
         products = [int(key) for key in basket.basket.keys() ]
         # products_num = { int(key):basket.basket[str(key)]['number'] for key in basket.basket.keys()}
-        print(basket)
-        context={'basket':Product.objects.filter(id__in=products), 'objects':basket }
+        products_num = { int(id):basket.basket[str(id)]['number'] for id in products }
+        price = {'get_total_price':basket.get_total_price(), 'get_discount':basket.get_discount(),
+                 'get_total_price_after_discount':basket.get_total_price_after_discount()}
+        context={'basket':Product.objects.filter(id__in=products), 'price':price, 'products_num':products_num, }
         print(context)
         return render(request, self.template_name, context=context)
 
@@ -104,7 +108,6 @@ def basket_add(request):
     # color = request.POST.get('color', None)
     # size = request.POST.get('size', None)
     # Cart(request).add(product=get_object_or_404(Product, id=product_id), color=color, size=size)
-    print("------------------------------------")
     Basket(request).add(product=get_object_or_404(Product, id=request.GET.get('product_id')))
     return redirect(request.META.get('HTTP_REFERER'))
 
@@ -112,3 +115,14 @@ def basket_remove(request):
     Basket(request).remove(
         product=get_object_or_404(Product, id=request.GET.get('product_id')))  # request.GET.keys['product_id']
     return redirect(request.META.get('HTTP_REFERER'))
+
+
+from django.template.defaulttags import register
+
+@register.filter
+def get_item(dictionary, key):
+    return dictionary.get(key)
+
+@register.filter
+def get_number_of_items(dictionary):
+    return sum(dictionary[i] for i in dictionary.keys())

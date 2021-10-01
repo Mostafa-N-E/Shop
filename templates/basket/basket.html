@@ -8,7 +8,7 @@
     <div style="margin-top: 90px;">
         {% if request.user.is_authenticated %}
             <li class="active">
-                <a href="{% url 'customer_login' %}">
+                <a href="{% url 'customer_profile' request.user.id %}">
                     <i class='bx bxs-user-account'></i><span>{% translate 'Account' %}</span>
                 </a>
             </li>
@@ -53,40 +53,91 @@
                 <h2>Your Basket</h2>
             </div>
 
-            <div class="row " data-aos="fade-up" data-aos-delay="200">
+            <div class="row" data-aos="fade-up" data-aos-delay="200">
                 {% for item in basket %}
-                    <div id="card-{{ item.id }}" class="col-lg-6 col-md-6 d-flex align-items-stretch ">
+                    <div id="card-{{ item.id }}" class="col-lg-4 col-md-6 d-flex align-items-stretch ">
                         <div class="card mb-5">
                             <div class="card-img-top">
                                 <img src="{{ item.image_main.url }}" class="img-thumbnail " alt="...">
                             </div>
-                            <div class="card-body">
-                                <div class="card-columns">
-                                    <h4>Product name : </h4>
-                                    <p><a href="{% url 'products:product_detail' item.id %}">{{ item.name }}</a></p>
-                                </div>
-                                <br>
-                                <h4>Product price : </h4>
-                                <p>{{ item.price }}</p>
-                                <br>
-                                <h4>Product name : </h4>
-                                <p>{{ item.name }}</p>
+                            <div class="card-body content">
+                                <ul>
+                                    <li>
+                                        <strong>Product name:</strong>
+                                        <a href="{% url 'products:product_detail' item.id %}">{{ item.name }}</a>
+                                    </li>
+                                    <li>
+                                        <strong>Product price:</strong> {{ item.price }}
+                                    </li>
+                                    <li>
+                                        <strong>Product name:</strong> {{ item.namer }}</li>
+                                    <li>
+                                        <strong>City:</strong> {{ customer.city }}
+                                    </li>
+                                </ul>
                             </div>
                             <div class="card-footer">
-                                <a id="{{ item.id }}" onclick="basket_remove(this.id)" style="color: red;">
-                                    <button type="button" class="btn btn-outline-danger" style="border-radius: 25px; ">
-                                        <i class='bx bxs-trash'></i>
-                                    </button>
-                                    {% with id=item.id %}
-                                    {{ objects.basket.}}
-                                    {% endwith %}
-                                </a>
+                                <div class="row">
+                                    <div class="col-7">
+                                        <a id="{{ item.id }}" onclick="basket_remove(this.id)" style="color: red;">
+                                            <button type="button" class="btn btn-outline-danger"
+                                                    style="border-radius: 25px; ">
+                                                <i class='bx bxs-trash'></i>
+                                            </button>
+                                        </a>
+                                    </div>
+                                    <div class="col-5">
+                                        <strong>number :</strong> {{ products_num|get_item:item.id }}
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 {% endfor %}
             </div>
+            <hr>
+            <div class="card mb-5">
+                <div class="card-body content">
+                    <ul>
+                        <li>
+                            <strong>number of items : </strong>{{ products_num|get_number_of_items }}
+                        </li>
+                        <li>
+                            <strong>Total price of items :</strong>{{ price.get_total_price }}
+                        </li>
+                        <li>
+                            <strong>Total discount of items:</strong>{{ price.get_discount }}
+                        </li>
+                    </ul>
+                    <hr>
+                    <p class="text-center">
+                        Shipping cost will be calculated based on the address, time and method of your chosen shipment
+                        and will be added to this amount.
+                    </p>
+                    <div class="pagination d-flex justify-content-between mb-3">
+                        <div>
+                            Total price : {{ price.get_total_price_after_discount }}
+                        </div>
+                        <div>
+                            {% if request.user.is_authenticated %}
+                                <a href="">
+                                    <button type="button" class="btn btn-primary" style="border-radius: 25px;">
+                                        Continue the buying process
+                                    </button>
+                                </a>
+                            {% else %}
+                                <a href="{% url 'customer_login' %}">
+                                    <button type="button" class="btn btn-primary" style="border-radius: 25px;">
+                                        Continue the buying process
+                                    </button>
+                                </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+
         <a id="BASKET" href="{% url 'basket:basket' %}" type=""> </a>
 
         <script>
