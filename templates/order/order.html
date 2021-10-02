@@ -85,9 +85,9 @@
             <div class="card mb-5">
                 <div class="card-body content">
 
-                    <div class="mb-3">
+                    <div class="mb-3 d-flex justify-content-between">
                         {% for item in basket %}
-                            <div>
+                            <div class="" >
                                 <a href="{% url 'products:product_detail' item.id %}">
                                     <img src="{{ item.image_main.url }}" class="img-thumbnail " alt="..." width="170px">
                                 </a>

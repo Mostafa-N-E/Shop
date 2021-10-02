@@ -42,10 +42,7 @@
                                     <i class="bx bx-link"></i>
                                 </a>
 
-                                <a id="{{ product.id }}" onclick="basket_add(this.id)" href="#"
-                                        {% if request.user.id in cart %}
-                                            style="color: red;"
-                                        {% endif %}>
+                                <a id="{{ product.id }}" onclick="basket_add(this.id)" class="disabled">
                                     <i class='bx bx-basket'></i>
                                 </a>
                                 {#                    <a href="{% url 'products:product_detail' product.id %}" data-vbtype="iframe" class="venobox" title="{{ product }}">#}

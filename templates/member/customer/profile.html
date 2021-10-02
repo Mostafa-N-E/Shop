@@ -8,36 +8,38 @@
 
 {% block account_nav-menu %}
     <div style="margin-top: 90px;">
-        <li class="active">
-            <a href="">
-                <i class='bx bxs-archive-in' ></i><span>{% translate 'My orders' %}</span>
-            </a>
-        </li>
+
     </div>
 {% endblock %}
 
 {% block shop_nav-menu %}
     <div style="margin-bottom: 90px;">
+
+    </div>
+{% endblock %}
+
+{% block pagenaiton_nav-menu %}
+    <div style="margin-top: 240px;margin-bottom: 240px;">
         <li class="active">
-            <a href="{% url 'customer_login' %}">
+            <a href="">
+                <i class='bx bxs-archive-in'></i><span>{% translate 'My orders' %}</span>
+            </a>
+        </li>
+        <li class="active ">
+            <a href="{% url 'products:show_products' %}">
+                <i class="bx bx-home"></i> <span>{% translate 'Home' %}</span>
+            </a>
+        </li>
+        <li class="active">
+            <a href="{% url 'basket:basket' %}">
                 <i class='bx bx-basket'></i><span>{% translate 'Basket' %}</span>
             </a>
         </li>
     </div>
 {% endblock %}
 
-{% block pagenaiton_nav-menu %}
-    <div style="margin-top: 240px;margin-bottom: 240px;">
-        <li class="active ">
-            <a href="{% url 'products:show_products' %}">
-                <i class="bx bx-home"></i> <span>{% translate 'Home' %}</span>
-            </a>
-        </li>
-    </div>
-{% endblock %}
-
 {% block profile %}
-    <section id="about" class="about" style="margin-bottom: 500px">
+    <section id="profile" class="about" style="margin-bottom: 100px">
         <div class="container aos-init aos-animate" data-aos="fade-up">
 
             <div class="section-title">
@@ -58,19 +60,27 @@
                         <div class="col-lg-6">
                             <ul>
                                 <li><i class="icofont-rounded-right"></i>
-                                    <strong>Username:</strong> {{ customer.username }}</li>
+                                    <strong>Username:</strong> {{ customer.username }}
+                                </li>
                                 <li><i class="icofont-rounded-right"></i>
                                     <strong>Email:</strong> {{ customer.email }}
                                 </li>
                                 <li><i class="icofont-rounded-right"></i>
-                                    <strong>Phone:</strong> {{ customer.phone_number }}</li>
+                                    <strong>First name :</strong> {{ customer.first_name }}
+                                </li>
                                 <li><i class="icofont-rounded-right"></i>
-                                    <strong>City:</strong> {{ customer.city }}
+                                    <strong>Last name:</strong> {{ customer.last_name }}
                                 </li>
                             </ul>
                         </div>
                         <div class="col-lg-6">
                             <ul>
+                                <li><i class="icofont-rounded-right"></i>
+                                    <strong>Phone:</strong> {{ customer.phone_number }}
+                                </li>
+                                <li><i class="icofont-rounded-right"></i>
+                                    <strong>City:</strong> {{ customer.city }}
+                                </li>
                                 <li><i class="icofont-rounded-right"></i>
                                     <strong>Address:</strong> {{ customer.address }}
                                 </li>
@@ -82,7 +92,7 @@
                     </div>
                     <hr>
                     <div class="d-flex justify-content-end">
-                        <a href="">
+                        <a href="{% url 'customer_profile_edit' request.user.id %}">
                             <button type="button" class="btn btn-primary " style="border-radius: 25px;">
                                 Edit your profile
                             </button>
@@ -93,5 +103,45 @@
 
         </div>
     </section>
+
 {% endblock %}
 
+{% block recent_orders %}
+    <section id="recent_orders" class="about" style="margin-bottom: 100px">
+        <div class="container" data-aos="fade-up">
+
+            <div class="section-title">
+                <h2>Your Recent orders</h2>
+            </div>
+
+            <div class="row" data-aos="fade-up" data-aos-delay="200">
+                {#                {% for item in customer %}#}
+                {##}
+                {#                {% endfor %}#}
+            </div>
+
+        </div>
+
+        <script>
+            // remove basket
+            function basket_remove(product_id) {
+                $.ajax({
+                    type: "GET",
+                    {#url: "/basket/?action=add&product_id=" + product_id,#}
+                    url: "/basket/remove/?product_id=" + product_id,
+
+                    success: function () {
+                        $('#card')
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        alert(xhr.responseText)
+                        console.log(xhr.status)
+                        console.log(ajaxOptions)
+                        console.log(thrownError)
+                    }
+                });
+            };
+        </script>
+
+    </section><!-- End products Section -->
+{% endblock %}

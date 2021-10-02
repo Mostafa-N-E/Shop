@@ -19,7 +19,7 @@ class Products(generic.ListView):
             count=Count('hits', filter=Q(producthits__created__gt =last_month))
         ).order_by('-count')
         # contact_list = Contact.objects.all()
-        paginator = Paginator(products, 1)  # Show 25 contacts per page.
+        paginator = Paginator(products, 5)  # Show 25 contacts per page.
         page_number = request.GET.get('page')
         products_list = paginator.get_page(page_number)
 
@@ -36,7 +36,7 @@ class Category_Products(generic.ListView):
         last_month = datetime.today() - timedelta(days=30)
         slug = self.kwargs['slug']
         products = Product.objects.filter(category__slug=slug)
-        paginator = Paginator(products, 1)  # Show 25 contacts per page.
+        paginator = Paginator(products, 5)  # Show 25 contacts per page.
         page_number = request.GET.get('page')
         products_list = paginator.get_page(page_number)
         category = Category.objects.get(slug=slug)
@@ -54,7 +54,7 @@ class ProductDetail(generic.DetailView):
             product.hits.add(ip_address)
         product_images = ProductImage.objects.filter(product=product)
         context = {'product': product, 'product_images': product_images, }
-        return render(request, 'product/product_detail_m.html', context)
+        return render(request, 'product/product_detail.html', context)
 
 
 def change_lang(request):

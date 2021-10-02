@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}  {% endblock %}
+
+{% block account_nav-menu %}
+    <div style="margin-top: 90px;">
+        {% if request.user.is_authenticated %}
+            <li class="active">
+                <a href="{% url 'customer_profile' request.user.id %}">
+                    <i class='bx bxs-user-account'></i><span>{% translate 'Account' %}</span>
+                </a>
+            </li>
+        {% else %}
+            <li class="">
+                <a href="#">
+                    <i class='bx bxs-user-account'></i><span>{% translate 'Account' %}</span>
+                </a>
+            </li>
+        {% endif %}
+    </div>
+
+{% endblock %}
+
+{% block shop_nav-menu %}
+    <div style="margin-bottom: 90px;">
+        <li class="active">
+            <a href="{% url 'customer_login' %}">
+                <i class='bx bx-basket'></i><span>{% translate 'Basket' %}</span>
+            </a>
+        </li>
+    </div>
+{% endblock %}
+
+{% block pagenaiton_nav-menu %}
+    <div style="margin-top: 240px;margin-bottom: 240px;">
+        <li class="active ">
+            <a href="{% url 'products:show_products' %}">
+                <i class="bx bx-home"></i> <span>{% translate 'Home' %}</span>
+            </a>
+        </li>
+    </div>
+{% endblock %}
+
+
+{% block content %}
+    <!-- ======= Portfolio Details ======= -->
+    <section id="portfolio-details" class="portfolio-details" style="margin-bottom: 150px">
+        <div class="container aos-init aos-animate" data-aos="fade-up">
+            <div class="section-title">
+                {#                <img width="300px" style="margin-bottom: 4vh" src="{% static 'img/edit.svg' %}">#}
+                <h2>Product detail</h2>
+            </div>
+            <div class="row">
+
+                <div class="col-lg-7">
+                    {#                    <h2 class="portfolio-title">Product detail</h2>#}
+                    <div class="owl-carousel portfolio-details-carousel owl-loaded owl-drag">
+                        <div class="owl-stage-outer">
+                            <div class="owl-stage"
+                                 style="transform: translate3d(-2434px, 0px, 0px); transition: all 0.25s ease 0s; width: 4261px;">
+                                <div class="owl-item cloned" >
+                                    <img src="{{ product.image_main.url }}" class="img-fluid" width="170px" alt="">
+                                </div>
+                                {% for product_image in product_images %}
+                                    <div class="owl-item cloned">
+                                        <img src="{{ product_image.image.url }}" class="img-fluid" width="170px" alt="">
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class="owl-nav disabled">
+                            <button type="button" role="presentation" class="owl-prev">
+                                <span aria-label="Previous">‹</span>
+                            </button>
+                            <button type="button" role="presentation" class="owl-next">
+                                <span aria-label="Next">›</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-5">
+
+                    <div class="content" style="margin-top: 4vh">
+                        <h3>Product information</h3>
+                        <div class="row">
+                            <ul>
+                                <li class="mt-4"><i class="icofont-rounded-right"></i>
+                                    <strong> Product category : </strong>{{ product.category }}
+                                </li>
+                                <li class="mt-4"><i class="icofont-rounded-right"></i>
+                                    <strong> Product name : </strong>{{ product.name }}
+                                </li>
+                                <li class="mt-4"><i class="icofont-rounded-right"></i>
+                                    <strong>Project date</strong>: 01 March, 2020
+                                </li>
+                                <li class="mt-4"><i class="icofont-rounded-right"></i>
+                                    <strong>Project URL</strong>: <a href="#">www.example.com</a>
+                                </li>
+                                <li class="mt-4"><i class="icofont-rounded-right"></i>
+                                    <strong>Description :</strong>
+                                    {{ product.description }}
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+    </section><!-- End Portfolio Details -->
+
+{% endblock %}
+

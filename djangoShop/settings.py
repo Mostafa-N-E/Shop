@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'dj_rest_auth.registration',
     #
     'bootstrap4',
+    'crispy_forms',
     'widget_tweaks',
     # my app
     'product',
@@ -56,7 +57,6 @@ INSTALLED_APPS = [
     'payment',
     'member',
     'cupon',
-    'core',
 ]
 
 MIDDLEWARE = [
@@ -111,7 +111,6 @@ DATABASES = {
         'PORT': '5432',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -190,3 +189,5 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # Cart Session ID
 
 CART_SESSION_ID = 'cart'
+
+CRISPY_TEMPLATE_PACK = 'uni_form'

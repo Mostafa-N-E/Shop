@@ -53,45 +53,55 @@
                 <h2>Your Basket</h2>
             </div>
 
-            <div class="row" data-aos="fade-up" data-aos-delay="200">
+            <div class="row justify-content-center" data-aos="fade-up" data-aos-delay="200">
                 {% for item in basket %}
-                    <div id="card-{{ item.id }}" class="col-lg-4 col-md-6 d-flex align-items-stretch ">
-                        <div class="card mb-5">
-                            <div class="card-img-top">
-                                <img src="{{ item.image_main.url }}" class="img-thumbnail " alt="...">
-                            </div>
-                            <div class="card-body content">
-                                <ul>
-                                    <li>
-                                        <strong>Product name:</strong>
-                                        <a href="{% url 'products:product_detail' item.id %}">{{ item.name }}</a>
-                                    </li>
-                                    <li>
-                                        <strong>Product price:</strong> {{ item.price }}
-                                    </li>
-                                    <li>
-                                        <strong>Product name:</strong> {{ item.namer }}</li>
-                                    <li>
-                                        <strong>City:</strong> {{ customer.city }}
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="card-footer">
-                                <div class="row">
-                                    <div class="col-7">
-                                        <a id="{{ item.id }}" onclick="basket_remove(this.id)" style="color: red;">
-                                            <button type="button" class="btn btn-outline-danger"
-                                                    style="border-radius: 25px; ">
-                                                <i class='bx bxs-trash'></i>
-                                            </button>
-                                        </a>
-                                    </div>
-                                    <div class="col-5">
-                                        <strong>number :</strong> {{ products_num|get_item:item.id }}
-                                    </div>
+
+                    <div class="card m-2">
+                        <div class="card-img-top">
+                            <img src="{{ item.image_main.url }}" class="img" width="310vm" height="310vm" alt="...">
+                        </div>
+                        <div class="card-body content">
+                            {#                            <div class="row">#}
+                            {#                                <div class="col-12">#}
+                            <ul>
+                                <li>
+                                    <i class="icofont-rounded-right"></i>
+                                    <strong>Product name:</strong>
+                                    <a href="{% url 'products:product_detail' item.id %}">{{ item.name }}</a>
+                                </li>
+                                <li>
+                                    <i class="icofont-rounded-right"></i>
+                                    <strong>Product price:</strong> {{ item.price }}
+                                </li>
+                                <li>
+                                    <i class="icofont-rounded-right"></i>
+                                    <strong>Product name:</strong> {{ item.namer }}</li>
+                                <li>
+                                    <i class="icofont-rounded-right"></i>
+                                    <strong>City:</strong> {{ customer.city }}
+                                </li>
+                            </ul>
+                            {#                                </div>#}
+                            {#                            </div>#}
+                        </div>
+
+                        <div class="">
+                            <div class="row m-2">
+                                <hr>
+                                <div class="col-7">
+                                    <a id="{{ item.id }}" onclick="basket_remove(this.id)" style="color: red;">
+                                        <button type="button" class="btn btn-outline-danger "
+                                                style="border-radius: 25px; ">
+                                            <i class='bx bxs-trash'></i>
+                                        </button>
+                                    </a>
+                                </div>
+                                <div class="col-5">
+                                    <strong>number :</strong> {{ products_num|get_item:item.id }}
                                 </div>
                             </div>
                         </div>
+
                     </div>
                 {% endfor %}
             </div>

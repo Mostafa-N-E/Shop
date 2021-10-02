@@ -1,7 +1,18 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load i18n %}
 
 {% block title %} Login {% endblock %}
+
+{% block pagenaiton_nav-menu %}
+    <div style="margin-top: 240px;margin-bottom: 240px;">
+        <li class="active ">
+            <a href="{% url 'products:show_products' %}">
+                <i class="bx bx-home"></i> <span>{% translate 'Home' %}</span>
+            </a>
+        </li>
+    </div>
+{% endblock %}
 
 {% block content %}
     <section class="ftco-section">
