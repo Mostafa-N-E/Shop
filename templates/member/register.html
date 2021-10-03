@@ -2,7 +2,7 @@
 {% load static %}
 {% load i18n %}
 
-{% block title %} Registration {% endblock %}
+{% block title %} {% translate 'Registration' %} {% endblock %}
 
 {% block pagenaiton_nav-menu %}
     <div style="margin-top: 240px;margin-bottom: 240px;">
@@ -28,29 +28,29 @@
                         <div class="icon d-flex align-items-center justify-content-center">
                             <span class="fa fa-user-o"></span>
                         </div>
-                        <h3 class="text-center mb-4">Sign Up</h3>
+                        <h3 class="text-center mb-4">{% translate 'Sign Up' %}</h3>
                         <form action="#" id="register_form" class="login" value="{{ csrf_token }}">
                             <div class="form-group">
                                 <input id="username" type="text" class="form-control rounded-left"
-                                       placeholder="Username"
+                                       placeholder="{% translate 'Username' %}"
                                        required>
                             </div>
                             <div class="form-group d-flex">
-                                <input id="email" type="email" class="form-control rounded-left" placeholder="Email"
+                                <input id="email" type="email" class="form-control rounded-left" placeholder="{% translate 'Email' %}"
                                        required>
                             </div>
                             <div class="form-group d-flex">
                                 <input id="password1" type="password" class="form-control rounded-left"
-                                       placeholder="Password" required>
+                                       placeholder="{% translate 'Password' %}" required>
                             </div>
                             <div class="form-group d-flex">
                                 <input id="password2" type="password" class="form-control rounded-left"
-                                       placeholder="Password confirm" required>
+                                       placeholder="{% translate 'Password confirm' %}" required>
                             </div>
 
                             <div class="form-group">
                                 <button id="register-submit" type="submit"
-                                        class="form-control btn btn-primary rounded submit px-3">Sign Up
+                                        class="form-control btn btn-primary rounded submit px-3">{% translate 'Sign Up' %}
                                 </button>
                             </div>
 

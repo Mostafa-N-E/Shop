@@ -49,7 +49,7 @@
         <div class="container" data-aos="fade-up">
 
             <div class="section-title">
-                <h2>Porducts in {{ category.name }}</h2>
+                <h2>{% translate 'Porducts in' %} {{ category.name }}</h2>
             </div>
 
             <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="200">
@@ -92,31 +92,31 @@
                     <div class="p-5">
                         <a href="{% url 'products:show_category_products' category.slug %}?page=1">
                             <button type="button" class="btn btn-outline-primary" style="border-radius: 25px">
-                                &laquo; first
+                                &laquo; {% translate 'first' %}
                             </button>
                         </a>
                         <a href="{% url 'products:show_category_products' category.slug %}?page={{ products_list.previous_page_number }}">
                             <button type="button" class="btn btn-outline-primary" style="border-radius: 25px;">
-                                previous
+                                {% translate 'previous' %}
                             </button>
                         </a>
                     </div>
                 {% endif %}
 
                 <div class="p-5">
-                    Page {{ products_list.number }} of {{ products_list.paginator.num_pages }}.
+                    {% translate 'Page' %} {{ products_list.number }} {% translate 'of' %} {{ products_list.paginator.num_pages }}.
                 </div>
 
                 {% if products_list.has_next %}
                     <div class="p-5">
                         <a href="{% url 'products:show_category_products' category.slug %}?page={{ products_list.next_page_number }}">
                             <button type="button" class="btn btn-outline-primary" style="border-radius: 25px; ">
-                                next
+                                {% translate 'next' %}
                             </button>
                         </a>
                         <a href="{% url 'products:show_category_products' category.slug %}?page={{ products_list.paginator.num_pages }}">
                             <button type="button" class="btn btn-outline-primary" style="border-radius: 25px;">
-                                last &raquo;
+                                {% translate 'last' %} &raquo;
                             </button>
                         </a>
                     </div>

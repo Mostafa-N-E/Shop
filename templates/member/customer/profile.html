@@ -43,7 +43,7 @@
         <div class="container aos-init aos-animate" data-aos="fade-up">
 
             <div class="section-title">
-                <h2>Profile</h2>
+                <h2>{% translate 'Profile' %}</h2>
             </div>
 
             <div class="row">
@@ -55,37 +55,37 @@
                     {% endif %}
                 </div>
                 <div class="col-lg-8 pt-4 pt-lg-0 content" style="margin-top: 4vh">
-                    <h3>Information</h3>
+                    <h3>{% translate 'Information' %}</h3>
                     <div class="row">
                         <div class="col-lg-6">
                             <ul>
                                 <li><i class="icofont-rounded-right"></i>
-                                    <strong>Username:</strong> {{ customer.username }}
+                                    <strong>{% translate 'Username' %}:</strong> {{ customer.username }}
                                 </li>
                                 <li><i class="icofont-rounded-right"></i>
-                                    <strong>Email:</strong> {{ customer.email }}
+                                    <strong>{% translate 'Email' %}:</strong> {{ customer.email }}
                                 </li>
                                 <li><i class="icofont-rounded-right"></i>
-                                    <strong>First name :</strong> {{ customer.first_name }}
+                                    <strong>{% translate 'First name' %} :</strong> {{ customer.first_name }}
                                 </li>
                                 <li><i class="icofont-rounded-right"></i>
-                                    <strong>Last name:</strong> {{ customer.last_name }}
+                                    <strong>{% translate 'Last name' %}:</strong> {{ customer.last_name }}
                                 </li>
                             </ul>
                         </div>
                         <div class="col-lg-6">
                             <ul>
                                 <li><i class="icofont-rounded-right"></i>
-                                    <strong>Phone:</strong> {{ customer.phone_number }}
+                                    <strong>{% translate 'Phone' %}:</strong> {{ customer.phone_number }}
                                 </li>
                                 <li><i class="icofont-rounded-right"></i>
-                                    <strong>City:</strong> {{ customer.city }}
+                                    <strong>{% translate 'City' %}:</strong> {{ customer.city }}
                                 </li>
                                 <li><i class="icofont-rounded-right"></i>
-                                    <strong>Address:</strong> {{ customer.address }}
+                                    <strong>{% translate 'Address' %}:</strong> {{ customer.address }}
                                 </li>
                                 <li><i class="icofont-rounded-right"></i>
-                                    <strong>Postal code:</strong> {{ customer.postal_code }}
+                                    <strong>{% translate 'Postal code' %}:</strong> {{ customer.postal_code }}
                                 </li>
                             </ul>
                         </div>
@@ -94,7 +94,7 @@
                     <div class="d-flex justify-content-end">
                         <a href="{% url 'customer_profile_edit' request.user.id %}">
                             <button type="button" class="btn btn-primary " style="border-radius: 25px;">
-                                Edit your profile
+                                {% translate 'Edit your profile' %}
                             </button>
                         </a>
                     </div>
@@ -111,7 +111,7 @@
         <div class="container" data-aos="fade-up">
 
             <div class="section-title">
-                <h2>Your Recent orders</h2>
+                <h2>{% translate 'Your Recent orders' %}</h2>
             </div>
 
             <div class="row" data-aos="fade-up" data-aos-delay="200">

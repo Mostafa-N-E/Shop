@@ -50,7 +50,7 @@
 
             <div class="section-title">
                 <img width="300px" style="margin-bottom: 4vh" src="{% static 'img/basket.svg' %}">
-                <h2>Your Basket</h2>
+                <h2>{% translate 'Your Basket' %}</h2>
             </div>
 
             <div class="row justify-content-center" data-aos="fade-up" data-aos-delay="200">
@@ -66,20 +66,16 @@
                             <ul>
                                 <li>
                                     <i class="icofont-rounded-right"></i>
-                                    <strong>Product name:</strong>
+                                    <strong>{% translate 'Product name' %}:</strong>
                                     <a href="{% url 'products:product_detail' item.id %}">{{ item.name }}</a>
                                 </li>
                                 <li>
                                     <i class="icofont-rounded-right"></i>
-                                    <strong>Product price:</strong> {{ item.price }}
+                                    <strong>{% translate 'Product price' %}:</strong> {{ item.price }}
                                 </li>
                                 <li>
                                     <i class="icofont-rounded-right"></i>
-                                    <strong>Product name:</strong> {{ item.namer }}</li>
-                                <li>
-                                    <i class="icofont-rounded-right"></i>
-                                    <strong>City:</strong> {{ customer.city }}
-                                </li>
+                                    <strong>{% translate 'Product name' %}:</strong> {{ item.namer }}</li>
                             </ul>
                             {#                                </div>#}
                             {#                            </div>#}
@@ -97,7 +93,7 @@
                                     </a>
                                 </div>
                                 <div class="col-5">
-                                    <strong>number :</strong> {{ products_num|get_item:item.id }}
+                                    <strong>{% translate 'number' %} :</strong> {{ products_num|get_item:item.id }}
                                 </div>
                             </div>
                         </div>
@@ -110,35 +106,34 @@
                 <div class="card-body content">
                     <ul>
                         <li>
-                            <strong>number of items : </strong>{{ products_num|get_number_of_items }}
+                            <strong>{% translate 'number of items' %} :  </strong>{{ products_num|get_number_of_items }}
                         </li>
                         <li>
-                            <strong>Total price of items :</strong>{{ price.get_total_price }}
+                            <strong>{% translate 'Total price of items' %} :  </strong>{{ price.get_total_price }}
                         </li>
                         <li>
-                            <strong>Total discount of items:</strong>{{ price.get_discount }}
+                            <strong>{% translate 'Total discount of items' %} :  </strong>{{ price.get_discount }}
                         </li>
                     </ul>
                     <hr>
                     <p class="text-center">
-                        Shipping cost will be calculated based on the address, time and method of your chosen shipment
-                        and will be added to this amount.
+                        {% translate 'Shipping cost will be calculated based on the address, time and method of your chosen shipment and will be added to this amount.' %}
                     </p>
                     <div class="pagination d-flex justify-content-between mb-3">
                         <div>
-                            Total price : {{ price.get_total_price_after_discount }}
+                            {% translate 'Total price' %} : {{ price.get_total_price_after_discount }}
                         </div>
                         <div>
                             {% if request.user.is_authenticated %}
                                 <a href="{% url 'order:order' %}">
                                     <button type="button" class="btn btn-primary" style="border-radius: 25px;">
-                                        Continue the buying process
+                                        {% translate 'Continue the buying process' %}
                                     </button>
                                 </a>
                             {% else %}
                                 <a href="{% url 'customer_login' %}">
                                     <button type="button" class="btn btn-primary" style="border-radius: 25px;">
-                                        Continue the buying process
+                                       {% translate 'Continue the buying process' %}
                                     </button>
                                 </a>
                             {% endif %}

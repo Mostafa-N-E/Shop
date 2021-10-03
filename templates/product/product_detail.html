@@ -50,7 +50,7 @@
         <div class="container aos-init aos-animate" data-aos="fade-up">
             <div class="section-title">
                 {#                <img width="300px" style="margin-bottom: 4vh" src="{% static 'img/edit.svg' %}">#}
-                <h2>Product detail</h2>
+                <h2>{% translate 'Product detail' %}</h2>
             </div>
             <div class="row">
 
@@ -60,12 +60,18 @@
                         <div class="owl-stage-outer">
                             <div class="owl-stage"
                                  style="transform: translate3d(-2434px, 0px, 0px); transition: all 0.25s ease 0s; width: 4261px;">
-                                <div class="owl-item cloned" >
-                                    <img src="{{ product.image_main.url }}" class="img-fluid" width="170px" alt="">
+                                <div class="owl-item cloned">
+                                    <a href="{{ product.image_main.url }}" data-gall="productGallery" class="venobox">
+                                        <img src="{{ product.image_main.url }}" class="img-fluid" width="170px" alt="">
+                                    </a>
                                 </div>
                                 {% for product_image in product_images %}
                                     <div class="owl-item cloned">
-                                        <img src="{{ product_image.image.url }}" class="img-fluid" width="170px" alt="">
+                                        <a href="{{ product_image.image.url }}" data-gall="productGallery"
+                                           class="venobox">
+                                            <img src="{{ product_image.image.url }}" class="img-fluid" width="170px"
+                                                 alt="">
+                                        </a>
                                     </div>
                                 {% endfor %}
                             </div>
@@ -84,23 +90,33 @@
                 <div class="col-lg-5">
 
                     <div class="content" style="margin-top: 4vh">
-                        <h3>Product information</h3>
+                        <h3>{% translate 'Product information' %}</h3>
                         <div class="row">
                             <ul>
                                 <li class="mt-4"><i class="icofont-rounded-right"></i>
-                                    <strong> Product category : </strong>{{ product.category }}
+                                    <strong> {% translate 'Product category' %} : </strong>{{ product.category }}
                                 </li>
                                 <li class="mt-4"><i class="icofont-rounded-right"></i>
-                                    <strong> Product name : </strong>{{ product.name }}
+                                    <strong> {% translate 'Product name' %} : </strong>{{ product.name }}
                                 </li>
                                 <li class="mt-4"><i class="icofont-rounded-right"></i>
-                                    <strong>Project date</strong>: 01 March, 2020
+                                    <strong> {% translate 'Product price' %} : </strong>{{ product.price }}
+                                </li>
+                                {% if not  product.discount == 0 %}
+                                    <li class="mt-4"><i class="icofont-rounded-right"></i>
+                                        <strong> {% translate 'Product discount' %} : </strong{{ product.discount }}
+                                    </li>
+                                {% endif %}
+                                <li class="mt-4"><i class="icofont-rounded-right"></i>
+                                    <strong> {% translate 'Product available' %}</strong>:
+                                    {% if  product.available %}
+                                        <i class='bx bx-check-circle' style='color:#1da200'  ></i>
+                                    {% else %}
+                                        <i class='bx bx-x-circle' style='color:#d60000'  ></i>
+                                    {% endif %}
                                 </li>
                                 <li class="mt-4"><i class="icofont-rounded-right"></i>
-                                    <strong>Project URL</strong>: <a href="#">www.example.com</a>
-                                </li>
-                                <li class="mt-4"><i class="icofont-rounded-right"></i>
-                                    <strong>Description :</strong>
+                                    <strong>{% translate 'Description' %} :</strong>
                                     {{ product.description }}
                                 </li>
                             </ul>

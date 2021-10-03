@@ -191,3 +191,6 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 CART_SESSION_ID = 'cart'
 
 CRISPY_TEMPLATE_PACK = 'uni_form'
+
+SITE_ROOT = os.path.dirname(os.path.realpath(__name__))
+LOCALE_PATHS = ( os.path.join(SITE_ROOT, 'locale'), )
