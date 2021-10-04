@@ -29,7 +29,9 @@
                             <span class="fa fa-user-o"></span>
                         </div>
                         <h3 class="text-center mb-4">{% translate 'Sign Up' %}</h3>
+                        {% csrf_token %}
                         <form action="#" id="register_form" class="login" value="{{ csrf_token }}">
+
                             <div class="form-group">
                                 <input id="username" type="text" class="form-control rounded-left"
                                        placeholder="{% translate 'Username' %}"
@@ -60,7 +62,7 @@
             </div>
         </div>
     </section>
-    <a id="HOME" href="{% url 'products:show_products' %}" type=""> </a>
+    <a id="LOGIN" href="{% url 'customer_login' %}" type=""> </a>
 {% endblock %}
 
 {% block CSS %}
@@ -93,12 +95,12 @@
                     'csrfmiddlewaretoken': csrf,
                     'username': username,
                     'email': email,
-                    'password1': password1,
-                    'password2': password2
+                    'password': password1,
+                    'password_Confirmation': password2
                 },
-                url: "/api/rest-auth/registration/",
+                url: "/api/registration/",
                 success: function () {
-                    let href = $('#HOME').attr('href')
+                    let href = $('#LOGIN').attr('href')
                     window.location = href
                     // window.location = "http://127.0.0.1:8000/member/login/"
                 },

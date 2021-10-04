@@ -6,6 +6,7 @@ from decimal import Decimal
 
 
 class BaseOrder(models.Model):
+    customer = models.ForeignKey(Customer, related_name='customer_order', on_delete=models.CASCADE)
     created = models.DateTimeField(verbose_name='Created', auto_now_add=True)
     updated = models.DateTimeField(verbose_name='Updated', auto_now=True)
     paid = models.BooleanField(verbose_name='Paid', default=False)
@@ -27,10 +28,9 @@ class BaseOrder(models.Model):
 
 
 class OrderItem(models.Model):
-    order_base = models.ForeignKey(BaseOrder, related_name='order_base', on_delete=models.CASCADE)
     product = models.ForeignKey(Product, related_name='products_order',on_delete=models.CASCADE)
-    color = models.CharField(max_length = 200, verbose_name = "Color")
-    size = models.CharField(max_length = 200, verbose_name = "Size")
+    color = models.CharField(max_length = 200, verbose_name = "Color", null=True, blank=True)
+    size = models.CharField(max_length = 200, verbose_name = "Size", null=True, blank=True)
     quantity = models.IntegerField(default=1)
 
     def __str__(self):
@@ -41,8 +41,9 @@ class OrderItem(models.Model):
 
 
 class Order(models.Model):
-    customer = models.ForeignKey(Customer, related_name='customer_order', on_delete=models.CASCADE)
+    order_base = models.ForeignKey(BaseOrder, related_name='order_base', on_delete=models.CASCADE)
     order_items = models.ManyToManyField(OrderItem, related_name='order_items')
+    paymentـtrackingـcode = models.IntegerField(null=True, blank=True) # for test this field is null
 
     def __str__(self):
         return f'{self.id}'

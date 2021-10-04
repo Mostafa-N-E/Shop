@@ -3,12 +3,16 @@ from .models import Order, OrderItem, BaseOrder
 
 # Register models.
 
-class OrderItemInline(admin.TabularInline):
-    model = OrderItem
-    raw_id_field = ['product']
+class OrderInline(admin.TabularInline):
+    model = Order
+    raw_id_field = ['order_items']
 
 @admin.register(BaseOrder)
-class OrderAdmin(admin.ModelAdmin):
+class BaseOrderAdmin(admin.ModelAdmin):
     list_display = ['id','created', 'updated', 'paid'] # , 'customer'
     list_filter = ['paid', 'created', 'updated']
-    inlines = [OrderItemInline]
+    inlines = [OrderInline]
+
+@admin.register(Order)
+class OrderAdmin(admin.ModelAdmin):
+    list_display = ['id','order_base',  'paymentـtrackingـcode']

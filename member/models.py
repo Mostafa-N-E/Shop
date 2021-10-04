@@ -11,8 +11,8 @@ GENDER_CHOICES = [
 ]
 
 class Customer(User):
-    phone_number = models.CharField(max_length=15)
-    gender = models.PositiveIntegerField(choices=GENDER_CHOICES, db_index = True, verbose_name = "Gender")
+    phone_number = models.CharField(max_length=15 ,null=True, blank=True)
+    gender = models.PositiveIntegerField(choices=GENDER_CHOICES, db_index = True, verbose_name = "Gender",null=True, blank=True)
     address = models.CharField(verbose_name='Address', max_length=250, null=True, blank=True)  #
     postal_code = models.CharField(verbose_name='Postal Code', max_length=20, null=True, blank=True)   #
     city = models.CharField(verbose_name='City', max_length=100, null=True, blank=True)   #

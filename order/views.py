@@ -54,23 +54,30 @@ class CreateOrder(CreateView):
     model = OrderItem
     # template_name = 'order/create_order.html'
 
-    def post(self, request, *args, **kwargs):
+    def get(self, request, *args, **kwargs):
         customer = Customer.objects.get(id=request.user.id)
         basket = Basket(request)
         products_id = [int(key) for key in basket.basket.keys()]
         products = Product.objects.filter(id__in=products_id)
-        base_order = BaseOrder()
+        base_order = BaseOrder(customer=customer)
+        base_order.save()
         order_items = []
         for product in products:
             order_item = OrderItem(
-                order_base=base_order
-                , product=product
+                product=product
                 , quantity=basket.basket[str(product.id)]['number']
             )
             order_item.save()
             order_items.append(order_item)
-        order = Order(customer=customer, order_items=order_items)
+
+        order = Order.objects.create(order_base=base_order)
         order.save()
+        for product in order_items:
+            order.order_items.add(product)
+            order.save()
+
+        # order = Order(customer=customer, order_items=OrderItem.objects.filter(id__in=order_items))
+        # order.save()
         return HttpResponse("created")
 
 

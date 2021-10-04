@@ -128,14 +128,14 @@
                             {% translate 'Total price' %} : {{ price.get_total_price_after_discount }}
                         </div>
                         <div>
-                            {% if request.user.is_authenticated %}
-                                <a href="">
+                            {% if customer.address and customer.postal_code and customer.city %}
+                                <a href="{% url 'order:order_create' %}">
                                     <button type="button" class="btn btn-primary" style="border-radius: 25px;">
                                         {% translate 'Continue the buying process' %}
                                     </button>
                                 </a>
                             {% else %}
-                                <a href="{% url 'customer_login' %}">
+                                <a onclick="alert_address()" class="disabled">
                                     <button type="button" class="btn btn-primary" style="border-radius: 25px;">
                                         {% translate 'Continue the buying process' %}
                                     </button>
@@ -147,6 +147,11 @@
             </div>
         </div>
 
+        <script>
+            function alert_address(){
+                alert("You don't have address. ")
+            }
+        </script>
     </section><!-- End products Section -->
 
 

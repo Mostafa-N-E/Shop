@@ -30,7 +30,8 @@ urlpatterns = [
     path('order/', include('order.urls')),
     # path('api-token-auth/', views.obtain_auth_token)
     path('api/rest-auth/', include('dj_rest_auth.urls')),
-    path('api/rest-auth/registration/', include('dj_rest_auth.registration.urls')),
+    # path('api/rest-auth/registration/', include('dj_rest_auth.registration.urls')),
+    path('api/registration/', include('member.api.urls')),
     path('api/rest-auth/password/reset/confirm/<uidb64>/<tocken>/', PasswordResetConfirmView.as_view(),
          name='password_reset_confirm'),
 

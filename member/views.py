@@ -29,7 +29,7 @@ class ProfileView(generic.DetailView):
 
     def get(self, request, *args, **kwargs):
         customer = Customer.objects.get(pk=self.kwargs['pk'])
-        recent_orders = Order.objects.all().order_by('-order__created')[:5]
+        recent_orders = Order.objects.all().order_by('-order_items__order_base__created')[:5]
         return render(request, "member/customer/profile.html", {'customer': customer,'recent_orders': recent_orders,})
 
 
@@ -40,4 +40,5 @@ class Profile_edit(UpdateView):
     template_name = 'member/customer/edit_info.html'
 
     def get_success_url(self):
-        self.success_url = '/member/profile/'+str(self.request.user.id)
+        self.success_url = f'http://127.0.0.1:8000/member/profile/{self.request.user.id}'
+

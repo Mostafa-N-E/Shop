@@ -30,12 +30,12 @@
 
                 <div class="col-lg-4 col-md-6 portfolio-item {{ product.category }}">
                     <div class="portfolio-wrap">
-                        <img src="{{ product.image_main.url }}" class="img-fluid" alt="">
+                        <img src="/media/{{ product.image_main }}" class="img-fluid" alt="">
                         <div class="portfolio-info">
                             <h2>{{ product.name }}</h2>
                             <p>{{ product.category }}</p>
                             <div class="portfolio-links">
-                                <a href="{{ product.image_main.url }}" data-gall="productGallery" class="venobox"
+                                <a href="/media/{{ product.image_main }}" data-gall="productGallery" class="venobox"
                                    title="{{ product }}">
                                     <i class="bx bx-plus"></i>
                                 </a>

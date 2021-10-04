@@ -168,9 +168,10 @@ MEDIA_URL = '/media/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
-    ],
+    'DEFAULT_PERMISSION_CLASSES': (
+        # 'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
+        # 'rest_framework.permissions.DjangoModelPermissions',
+    )
     # 'DEFAULT_AUTHENTICATION_CLASSES': [
     #     # 'rest_framework.authentication.TokenAuthentication',
     #     'dj_rest_auth.jwt_auth.JWTCookieAuthentication',
@@ -193,4 +194,6 @@ CART_SESSION_ID = 'cart'
 CRISPY_TEMPLATE_PACK = 'uni_form'
 
 SITE_ROOT = os.path.dirname(os.path.realpath(__name__))
-LOCALE_PATHS = ( os.path.join(SITE_ROOT, 'locale'), )
+LOCALE_PATHS = (os.path.join(SITE_ROOT, 'locale'),)
+
+# AUTHENTICATION_BACKENDS = ['member.api.views.Register']
