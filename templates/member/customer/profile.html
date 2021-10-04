@@ -114,34 +114,94 @@
                 <h2>{% translate 'Your Recent orders' %}</h2>
             </div>
 
-            <div class="row" data-aos="fade-up" data-aos-delay="200">
-                {#                {% for item in customer %}#}
-                {##}
-                {#                {% endfor %}#}
+            <div class="container" data-aos="fade-up" data-aos-delay="200">
+
+
+                {% for order in recent_orders %}
+
+                    <div>
+                        <div class="card mb-5">
+                            <div class="card-body content">
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <i class="icofont-rounded-right"></i>
+                                        <strong>{% translate 'Order status' %}  :  </strong>
+                                        {% if order.order_base.status == 1 %}
+                                            {% translate 'cancel' %}
+                                        {% elif order.order_base.status == 2 %}
+                                            {% translate 'success' %}
+                                        {% elif order.order_base.status == 3 %}
+                                            {% translate 'process' %}
+                                        {% elif order.order_base.status == 4 %}
+                                            {% translate 'deliver' %}
+                                        {% elif order.order_base.status == 5 %}
+                                            {% translate 'send' %}
+                                        {% elif order.order_base.status == 6 %}
+                                            {% translate 'active' %}
+                                        {% endif %}
+                                    </div>
+                                <div>
+                                        <i class="icofont-rounded-right"></i>
+                                        <strong>{% translate 'Total price of order' %}
+                                            : </strong>{{ order.get_total_cost }}
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="mb-3 d-flex justify-content-start">
+                                    {% for item in order.order_items.all %}
+                                        <div class="m-3">
+                                            <a href="{% url 'products:product_detail' item.id %}">
+                                                <img src="{{ item.product.image_main.url }}" class="img-thumbnail "
+                                                     alt="..."
+                                                     width="170px">
+                                            </a>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                                <hr>
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <i class="icofont-rounded-right"></i>
+                                        <strong>{% translate 'Order registration date' %}
+                                            : </strong>{{ order.order_base.created }}
+                                    </div>
+                                    <a href="{% url 'basket:basket' %}">
+                                        <button type="button" class="btn btn-primary " style="border-radius: 25px;">
+                                            {% translate 'Edit your backet' %}
+                                        </button>
+                                    </a>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                {% endfor %}
+
+
             </div>
 
-        </div>
+            <script>
+                // remove basket
+                function basket_remove(product_id) {
+                    $.ajax({
+                        type: "GET",
+                        {#url: "/basket/?action=add&product_id=" + product_id,#}
+                        url: "/basket/remove/?product_id=" + product_id,
 
-        <script>
-            // remove basket
-            function basket_remove(product_id) {
-                $.ajax({
-                    type: "GET",
-                    {#url: "/basket/?action=add&product_id=" + product_id,#}
-                    url: "/basket/remove/?product_id=" + product_id,
-
-                    success: function () {
-                        $('#card')
-                    },
-                    error: function (xhr, ajaxOptions, thrownError) {
-                        alert(xhr.responseText)
-                        console.log(xhr.status)
-                        console.log(ajaxOptions)
-                        console.log(thrownError)
-                    }
-                });
-            };
-        </script>
+                        success: function () {
+                            $('#card')
+                        },
+                        error: function (xhr, ajaxOptions, thrownError) {
+                            alert(xhr.responseText)
+                            console.log(xhr.status)
+                            console.log(ajaxOptions)
+                            console.log(thrownError)
+                        }
+                    });
+                };
+            </script>
 
     </section><!-- End products Section -->
 {% endblock %}

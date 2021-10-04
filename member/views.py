@@ -29,7 +29,7 @@ class ProfileView(generic.DetailView):
 
     def get(self, request, *args, **kwargs):
         customer = Customer.objects.get(pk=self.kwargs['pk'])
-        recent_orders = Order.objects.all().order_by('-order_items__order_base__created')[:5]
+        recent_orders = Order.objects.all().order_by('-order_base__created')[:5]
         return render(request, "member/customer/profile.html", {'customer': customer,'recent_orders': recent_orders,})
 
 
