@@ -1,0 +1,174 @@
+
+
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}  {% endblock %}
+
+{% block account_nav-menu %}
+    <div style="margin-top: 90px;">
+
+    </div>
+{% endblock %}
+
+{% block shop_nav-menu %}
+    <div style="margin-bottom: 90px;">
+
+    </div>
+{% endblock %}
+
+{% block pagenaiton_nav-menu %}
+    <div style="margin-top: 240px;margin-bottom: 240px;">
+        <li class="active">
+            <a href="{% url 'order:list_orders' %}">
+                <i class='bx bxs-archive-in'></i><span>{% translate 'My orders' %}</span>
+            </a>
+        </li>
+        <li class="active ">
+            <a href="{% url 'products:show_products' %}">
+                <i class="bx bx-home"></i> <span>{% translate 'Home' %}</span>
+            </a>
+        </li>
+        <li class="active">
+            <a href="{% url 'basket:basket' %}">
+                <i class='bx bx-basket'></i><span>{% translate 'Basket' %}</span>
+            </a>
+        </li>
+    </div>
+{% endblock %}
+
+{% block recent_orders %}
+    <section id="recent_orders" class="about" style="margin-bottom: 100px">
+        <div class="container" data-aos="fade-up">
+
+            <div class="section-title">
+                <h2>{% translate 'order detail' %}</h2>
+            </div>
+
+            <div class="card mb-5">
+                <div class="card-body content">
+                    <h3>{% translate 'order detail' %}  ( {{ order.id}} )</h3>
+                    <div class="row">
+                        <div class="col-4">
+                            <i class='bx bx-user-circle' style='color:#005cbd'></i>
+                            <strong>{% translate 'Transferee' %} : </strong>
+                            {{ order.order_base.customer.first_name }} {{ order.order_base.customer.last_name }}
+                        </div>
+                        <div class="col-5">
+                            <i class="icofont-rounded-right"></i>
+                            <strong>{% translate 'Phone number' %}:</strong> {{ order.order_base.customer.phone_number }}
+                        </div>
+                    </div>
+                    <div>
+                        <i class="icofont-rounded-right"></i>
+                        <strong>{% translate 'Send to' %} : </strong>
+                        {{ order.order_base.customer.city }}, {{ order.order_base.customer.address }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="container" data-aos="fade-up" data-aos-delay="200">
+                <div>
+                    <div class="card mb-5">
+                        <div class="card-body content">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <i class="icofont-rounded-right"></i>
+                                    <strong>{% translate 'Order status' %} : </strong>
+                                    {% if order.order_base.status == 1 %}
+                                        {% translate 'cancel' %}
+                                    {% elif order.order_base.status == 2 %}
+                                        {% translate 'success' %}
+                                    {% elif order.order_base.status == 3 %}
+                                        {% translate 'process' %}
+                                    {% elif order.order_base.status == 4 %}
+                                        {% translate 'deliver' %}
+                                    {% elif order.order_base.status == 5 %}
+                                        {% translate 'send' %}
+                                    {% elif order.order_base.status == 6 %}
+                                        {% translate 'active' %}
+                                    {% endif %}
+                                </div>
+                                <div>
+                                    <i class="icofont-rounded-right"></i>
+                                    <strong>{% translate 'Total price of order' %}
+                                        : </strong>{{ order.get_total_cost }}
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="mb-3 d-flex justify-content-between">
+                                <div>
+                                    <i class="icofont-rounded-right"></i>
+                                    <strong>{% translate 'Order contents' %} : </strong>
+                                </div>
+                                <div>
+                                    ( <strong>{% translate 'number of items in order' %} : </strong>
+                                    {{ order.get_number_of_items }} )
+                                </div>
+                            </div>
+                            <div class="mb-3 d-flex justify-content-center">
+
+                                <div class="row justify-content-center" data-aos="fade-up" data-aos-delay="200">
+                                    {% for item in order.order_items.all %}
+                                        <div class="card m-5">
+                                            <div class="card-img-top">
+                                                <img src="{{ item.product.image_main.url }}" class="img" width="310vm"
+                                                     height="240vm" alt="...">
+                                            </div>
+                                            <div class="card-body content">
+                                                <ul>
+                                                    <li>
+                                                        <i class="icofont-rounded-right"></i>
+                                                        <strong>{% translate 'Product name' %}:</strong>
+                                                        <a href="{% url 'products:product_detail' item.id %}">{{ item.product.name }}</a>
+                                                    </li>
+                                                    <li>
+                                                        <i class="icofont-rounded-right"></i>
+                                                        <strong>{% translate 'Product price' %}:</strong> {{ item.product.price }}
+                                                    </li>
+                                                    <li>
+                                                        <i class="icofont-rounded-right"></i>
+                                                        <strong>{% translate 'Product category' %}:</strong> {{ item.product.category }}
+                                                    </li>
+                                                </ul>
+                                                <hr>
+                                                <div>
+                                                    <i class="icofont-rounded-right"></i>
+                                                    <strong>{% translate 'number of this item in order' %}
+                                                        : {{ item.quantity }}</strong>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+
+                            </div>
+                            <hr>
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <i class="icofont-rounded-right"></i>
+                                    <strong>{% translate 'Order registration date' %} : </strong>
+                                    {{ order.order_base.created }}
+                                </div>
+                                <div>
+                                    <i class="icofont-rounded-right"></i>
+                                    <strong>{% translate 'Order code' %} : </strong>
+                                    {{ order.id }}
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <i class="icofont-rounded-right"></i>
+                                    <strong>{% translate 'Payment tracking code' %} : </strong>
+                                    {{ order.paymentـtrackingـcode }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section><!-- End products Section -->
+{% endblock %}

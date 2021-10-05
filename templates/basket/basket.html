@@ -58,7 +58,7 @@
 
                     <div class="card m-2">
                         <div class="card-img-top">
-                            <img src="{{ item.image_main.url }}" class="img" width="310vm" height="310vm" alt="...">
+                            <img src="{{ item.image_main.url }}" class="img" width="310vm" height="240vm" alt="...">
                         </div>
                         <div class="card-body content">
                             {#                            <div class="row">#}
@@ -101,55 +101,53 @@
                     </div>
                 {% endfor %}
             </div>
-            <hr>
-            <div class="card mb-5">
-                <div class="card-body content">
-                    <ul>
-                        <li>
-                            <strong>{% translate 'number of items' %} : </strong>{{ products_num|get_number_of_items }}
-                        </li>
-                        <li>
-                            <strong>{% translate 'Total price of items' %} : </strong>{{ price.get_total_price }}
-                        </li>
-                        <li>
-                            <strong>{% translate 'Total discount of items' %} : </strong>{{ price.get_discount }}
-                        </li>
-                    </ul>
-                    <hr>
-                    <p class="text-center">
-                        {% translate 'Shipping cost will be calculated based on the address, time and method of your chosen shipment and will be added to this amount.' %}
-                    </p>
-                    <div class="pagination d-flex justify-content-between mb-3">
-                        <div>
-                            {% translate 'Total price' %} : {{ price.get_total_price_after_discount }}
-                        </div>
-                        <div>
-                            {% if products_num|get_number_of_items %}
-                                {% if request.user.is_authenticated %}
-                                    <a href="{% url 'order:order' %}">
-                                        <button type="button" class="btn btn-primary" style="border-radius: 25px;">
-                                            {% translate 'Continue the buying process' %}
-                                        </button>
-                                    </a>
-                                {% else %}
-                                    <a href="{% url 'customer_login' %}">
-                                        <button type="button" class="btn btn-primary" style="border-radius: 25px;">
-                                            {% translate 'Continue the buying process' %}
-                                        </button>
-                                    </a>
-                                {% endif %}
-                            {% else %}
-                            <a onclick="alert_empty_basket()" class="disabled">
-                                <button type="button" class="btn btn-primary" style="border-radius: 25px;">
-                                    {% translate 'Continue the buying process' %}
-                                </button>
-                            </a>
-                        {% endif %}
+            {% if products_num|get_number_of_items %}
+                <hr>
+                <div class="card mb-5">
+                    <div class="card-body content">
+                        <ul>
+                            <li>
+                                <strong>{% translate 'number of items' %}
+                                    : </strong>{{ products_num|get_number_of_items }}
+                            </li>
+                            <li>
+                                <strong>{% translate 'Total price of items' %} : </strong>{{ price.get_total_price }}
+                            </li>
+                            <li>
+                                <strong>{% translate 'Total discount of items' %} : </strong>{{ price.get_discount }}
+                            </li>
+                        </ul>
+                        <hr>
+                        <p class="text-center">
+                            {% translate 'Shipping cost will be calculated based on the address, time and method of your chosen shipment and will be added to this amount.' %}
+                        </p>
+                        <div class="pagination d-flex justify-content-between mb-3">
+                            <div>
+                                {% translate 'Total price' %} : {{ price.get_total_price_after_discount }}
+                            </div>
+                            <div>
+                                <a href="{% url 'order:order' %}">
+                                    <button type="button" class="btn btn-primary" style="border-radius: 25px;">
+                                        {% translate 'Continue the buying process' %}
+                                    </button>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
+                </div>
+            {% else %}
+                <div class="card mb-5">
+                    <div class="card-body content">
+
+                        <h2 class="text-center">
+                            {% translate 'Your basket is empty' %}
+                        </h2>
+
+                    </div>
+                </div>
+            {% endif %}
+
 
         <a id="BASKET" href="{% url 'basket:basket' %}" type=""> </a>
 
@@ -173,7 +171,7 @@
                 });
             };
 
-            function alert_empty_basket(){
+            function alert_empty_basket() {
                 alert("Your basket is empty. ")
             }
         </script>

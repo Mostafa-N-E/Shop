@@ -7,9 +7,11 @@ from product.models import Product
 from basket.views import Basket
 from member.models import Customer
 
+from django.contrib.auth.mixins import LoginRequiredMixin
 
-class OrderView(View):
+class OrderView(LoginRequiredMixin,View):
     template_name = 'order/order.html'
+    login_url = "/member/login/"
 
     def get(self, request, *args, **kwargs):
         customer = Customer.objects.get(id=request.user.id)
@@ -34,24 +36,32 @@ class OrderView(View):
 #         return render(request, self.template_name, context=context)
 
 
-class ListOrder(ListView):
+class ListOrder(LoginRequiredMixin,ListView):
     model = Order
     context_object_name = 'orders'
-    template_name = 'order/list_orders.html'
+    template_name = 'order/orders.html'
+    login_url = "/member/login/"
 
     def get(self, request, *args, **kwargs):
         customer = Customer.objects.get(id=request.user.id)
-        orders = Order.objects.filter(customer=customer)
+        orders = Order.objects.filter(order_base__customer=customer).order_by('-order_base__created')
         return render(request, self.template_name, context={'orders': orders,})
 
 
-class DetailOrder(DetailView):
-    model = OrderItem
-    template_name = 'order/detail_order.html'
+class DetailOrder(LoginRequiredMixin,DetailView):
+    model = Order
+    context_object_name = 'order'
+    template_name = 'order/order_detail.html'
+    login_url = "/member/login/"
+
+    # def get(self, request, *args, **kwargs):
+    #     order = Order.objects.get(pk=self.kwargs['pk'])
+    #     return render(request, self.template_name, context={'order': order,})
 
 
-class CreateOrder(CreateView):
+class CreateOrder(LoginRequiredMixin,CreateView):
     model = OrderItem
+    login_url = "/member/login/"
     # template_name = 'order/create_order.html'
 
     def get(self, request, *args, **kwargs):
@@ -81,8 +91,9 @@ class CreateOrder(CreateView):
         return HttpResponse("created")
 
 
-class DeleteOrder(DeleteView):
+class DeleteOrder(LoginRequiredMixin,DeleteView):
     model = BaseOrder
+    login_url = "/member/login/"
 
 
 # class UpdateOrder(UpdateView):

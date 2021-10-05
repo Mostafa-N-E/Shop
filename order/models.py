@@ -50,6 +50,9 @@ class Order(models.Model):
 
     def get_total_cost(self):
         return sum(order_item.product.get_total_cost() for order_item in self.order_items.all())
+
+    def get_number_of_items(self):
+        return sum(order_item.quantity for order_item in self.order_items.all())
 # class Basket(models.Model):
 #     customer = models.ForeignKey(Customer, on_delete=models.RESTRICT)
 #     order_items = models.ManyToManyField(OrderItem, related_name='order_items')

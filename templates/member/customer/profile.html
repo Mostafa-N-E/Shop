@@ -4,7 +4,7 @@
 {% load static %}
 {% load i18n %}
 
-{% block title %}  {% endblock %}
+{% block title %} Profile {% endblock %}
 
 {% block account_nav-menu %}
     <div style="margin-top: 90px;">
@@ -21,7 +21,7 @@
 {% block pagenaiton_nav-menu %}
     <div style="margin-top: 240px;margin-bottom: 240px;">
         <li class="active">
-            <a href="">
+            <a href="{% url 'order:list_orders' %}">
                 <i class='bx bxs-archive-in'></i><span>{% translate 'My orders' %}</span>
             </a>
         </li>
@@ -150,7 +150,7 @@
                                 <div class="mb-3 d-flex justify-content-start">
                                     {% for item in order.order_items.all %}
                                         <div class="m-3">
-                                            <a href="{% url 'products:product_detail' item.id %}">
+                                            <a href="{% url 'products:product_detail' item.product.id %}">
                                                 <img src="{{ item.product.image_main.url }}" class="img-thumbnail "
                                                      alt="..."
                                                      width="170px">
@@ -165,9 +165,10 @@
                                         <strong>{% translate 'Order registration date' %}
                                             : </strong>{{ order.order_base.created }}
                                     </div>
-                                    <a href="{% url 'basket:basket' %}">
-                                        <button type="button" class="btn btn-primary " style="border-radius: 25px;">
-                                            {% translate 'Edit your backet' %}
+                                    <a href="{% url 'order:detail_order' order.id %}">
+                                        <button type="button" class="btn btn-primary "
+                                                style="border-radius: 25px;">
+                                            {% translate 'More detail' %}
                                         </button>
                                     </a>
 

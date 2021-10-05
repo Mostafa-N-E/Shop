@@ -57,17 +57,17 @@
                             </div>
 
                         </form>
-                        <div class="form-group d-md-flex">
-{#                            <div class="w-50">#}
-{#                                <label class="checkbox-wrap checkbox-primary">Remember Me#}
-{#                                    <input type="checkbox" checked>#}
-{#                                    <span class="checkmark"></span>#}
-{#                                </label>#}
-{#                            </div>#}
-                            <div class="w-50 text-md-left">
+                        <div class="d-flex justify-content-between">
+                            {#                            <div class="w-50">#}
+                            {#                                <label class="checkbox-wrap checkbox-primary">Remember Me#}
+                            {#                                    <input type="checkbox" checked>#}
+                            {#                                    <span class="checkmark"></span>#}
+                            {#                                </label>#}
+                            {#                            </div>#}
+                            <div class="">
                                 <a href="{% url 'customer_register' %}">{% translate 'Create account' %}</a>
                             </div>
-                            <div class="w-50 text-md-right">
+                            <div class="">
                                 <a href="#">{% translate 'Forgot Password' %}</a>
                             </div>
                         </div>
@@ -109,8 +109,14 @@
                 },
                 url: "/api/rest-auth/login/",
                 success: function () {
-                    let href = $('#HOME').attr('href')
-                    window.location = href
+
+                    //let href = $('#HOME').attr('href')
+                    //$.ajax({
+                    //    type: "GET",
+                    //    url: {% url 'customer_login' %},
+                    //})
+                    location.reload();
+                    // window.location = href
                     // $("#HOME").load(href);
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
