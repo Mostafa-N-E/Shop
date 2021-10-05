@@ -8,6 +8,7 @@ from product.models import Product
 from decimal import Decimal
 from cupon.models import Cupon
 from django.utils import timezone
+from django.template.defaulttags import register
 
 
 class Basket(object):
@@ -117,7 +118,6 @@ def basket_remove(request):
     return redirect(request.META.get('HTTP_REFERER'))
 
 
-from django.template.defaulttags import register
 
 @register.filter
 def get_item(dictionary, key):

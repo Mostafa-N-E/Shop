@@ -6,6 +6,7 @@ from .models import Order, OrderItem, BaseOrder
 from product.models import Product
 from basket.views import Basket
 from member.models import Customer
+from django.template.defaulttags import register
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 
@@ -45,6 +46,7 @@ class ListOrder(LoginRequiredMixin,ListView):
     def get(self, request, *args, **kwargs):
         customer = Customer.objects.get(id=request.user.id)
         orders = Order.objects.filter(order_base__customer=customer).order_by('-order_base__created')
+        # orders_filter_by_status = {i+1:Order.objects.filter(order_base__customer=customer).filter(order_base__status=i).count() for i in range(BaseOrder.status_code.__len__())}
         return render(request, self.template_name, context={'orders': orders,})
 
 
@@ -94,6 +96,15 @@ class CreateOrder(LoginRequiredMixin,CreateView):
 class DeleteOrder(LoginRequiredMixin,DeleteView):
     model = BaseOrder
     login_url = "/member/login/"
+
+
+@register.filter
+def get_range(int):
+    return range(1,int+1)
+
+@register.filter
+def get_number_of_order(status,customer_id):
+    return Order.objects.filter(order_base__customer_id=customer_id).filter(order_base__status=status).count()
 
 
 # class UpdateOrder(UpdateView):

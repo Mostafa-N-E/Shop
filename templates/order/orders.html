@@ -50,13 +50,14 @@
             <div class="row">
                 <div class="col-lg-12 d-flex justify-content-center" data-aos="fade-up" data-aos-delay="100">
                     <ul id="portfolio-flters">
-                        <li data-filter="*" class="filter-active">{% translate 'All' %}</li>
-                        <li data-filter=".1">{% translate 'cancel' %}</li>
-                        <li data-filter=".2">{% translate 'success' %}</li>
-                        <li data-filter=".3">{% translate 'process' %}</li>
-                        <li data-filter=".4">{% translate 'deliver' %}</li>
-                        <li data-filter=".5">{% translate 'send' %}</li>
-                        <li data-filter=".6">{% translate 'active' %}</li>
+                        <li data-filter="*" class="filter-active" onload="hidden_visibity()"
+                            onclick="hidden_visibity()">{% translate 'All' %}</li>
+                        <li data-filter=".1" onclick="unhidden(1)">{% translate 'cancel' %}</li>
+                        <li data-filter=".2" onclick="unhidden(2)">{% translate 'success' %}</li>
+                        <li data-filter=".3" onclick="unhidden(3)">{% translate 'process' %}</li>
+                        <li data-filter=".4" onclick="unhidden(4)">{% translate 'deliver' %}</li>
+                        <li data-filter=".5" onclick="unhidden(5)">{% translate 'send' %}</li>
+                        <li data-filter=".6" onclick="unhidden(6)">{% translate 'active' %}</li>
                     </ul>
                 </div>
             </div>
@@ -65,9 +66,6 @@
                 {% for order in orders %}
 
                     <div class="col-lg-12 col-md-12 portfolio-item {{ order.order_base.status }}">
-                        {#                        <div class="portfolio-wrap">#}
-                        {#                        <img src="{{ product.image_main.url }}" class="img-fluid" alt="">#}
-                        {#                            <div>#}
                         <div class="card mb-5">
                             <div class="card-body content">
                                 <div class="d-flex justify-content-between">
@@ -128,9 +126,46 @@
                     </div>
 
                 {% endfor %}
+                {% for status in 6|get_range %}
+                    <div id="{{ status }}">
+                        {% if status|get_number_of_order:request.user.id == 0 %}
+                            <div class="col-lg-12 col-md-12 portfolio-item {{ status }}">
+                                <div class="card mb-5">
+                                    <div class="card-body content">
+                                        <div class="text-center" style="font-size: x-large">
+                                            <div>
+                                                <img width="300px" style="margin-bottom: 4vh"
+                                                     src="{% static 'img/not-found.png' %}">
+                                            </div>
+                                            {% translate "You don't have any order with this status" %}
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        {% endif %}
+                    </div>
+                {% endfor %}
             </div>
         </div>
+        <script>
+            function hidden_visibity() {
+                var status = 1;
+                for (var i = 0; i < 7; i++) {
+                    $(`#${status + i}`).css('display', "none");
+                }
+            };
 
+            function unhidden(status) {
+                $(`#${status}`).css('display', "");
+                //$(`#${status}`).css('margin-bottom', '400px');
+            };
+            $(document).ready(function () {
+                console.log('this is run on page load');
+                hidden_visibity();
+            });
+        </script>
     </section><!-- End orders Section -->
 
 {% endblock %}

@@ -45,7 +45,7 @@
 
 
 {% block basket %}
-    <section id="basket" class="portfolio section-bg" style="margin-bottom: 500px">
+    <section id="basket" class="portfolio section-bg" >
         <div class="container" data-aos="fade-up">
 
             <div class="section-title">
@@ -139,7 +139,10 @@
             {% else %}
                 <div class="card mb-5">
                     <div class="card-body content">
-
+                        <div class="text-center">
+                            <img width="200px" style="margin-bottom: 4vh"
+                                 src="{% static 'img/empty.jpeg' %}">
+                        </div>
                         <h2 class="text-center">
                             {% translate 'Your basket is empty' %}
                         </h2>
