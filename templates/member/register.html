@@ -24,35 +24,35 @@
             </div>
             <div class="row justify-content-center">
                 <div class="col-md-7 col-lg-5">
-                    <div class="login-wrap p-4 p-md-5">
-                        <div class="icon d-flex align-items-center justify-content-center">
-                            <span class="fa fa-user-o"></span>
+                    <div class="card login p-4 p-md-5 " style="height: 50vh;margin-top: 10vh">
+                        <div class="icon d-flex align-items-center justify-content-center mb-2">
+                            <img width="100px" src="{% static 'img/user.png' %}">
                         </div>
                         <h3 class="text-center mb-4">{% translate 'Sign Up' %}</h3>
                         {% csrf_token %}
                         <form action="#" id="register_form" class="login" value="{{ csrf_token }}">
 
                             <div class="form-group">
-                                <input id="username" type="text" class="form-control rounded-left"
+                                <input id="username" type="text" class="form-control "
                                        placeholder="{% translate 'Username' %}"
                                        required>
                             </div>
                             <div class="form-group d-flex">
-                                <input id="email" type="email" class="form-control rounded-left" placeholder="{% translate 'Email' %}"
+                                <input id="email" type="email" class="form-control " placeholder="{% translate 'Email' %}"
                                        required>
                             </div>
-                            <div class="form-group d-flex">
-                                <input id="password1" type="password" class="form-control rounded-left"
+                            <div class="form-group d-flex" >
+                                <input id="password1" type="password" class="form-control "
                                        placeholder="{% translate 'Password' %}" required>
                             </div>
                             <div class="form-group d-flex">
-                                <input id="password2" type="password" class="form-control rounded-left"
+                                <input id="password2" type="password" class="form-control "
                                        placeholder="{% translate 'Password confirm' %}" required>
                             </div>
 
                             <div class="form-group">
                                 <button id="register-submit" type="submit"
-                                        class="form-control btn btn-primary rounded submit px-3">{% translate 'Sign Up' %}
+                                        class="form-control btn btn-primary submit px-3">{% translate 'Sign Up' %}
                                 </button>
                             </div>
 
@@ -66,7 +66,7 @@
 {% endblock %}
 
 {% block CSS %}
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+{#    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">#}
     <link rel="stylesheet" href="{% static 'css/login/style.css' %}">
 {% endblock %}
 
