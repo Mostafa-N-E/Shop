@@ -1,10 +1,24 @@
 from django.db import  models
 from django.contrib.auth import get_user_model
-# from order.models import OrderItem
 from django.utils.translation import gettext_lazy as _
 from translated_fields import TranslatedField
 
 User = get_user_model()
+
+
+class ContactUs(models.Model):
+    name = models.CharField(max_length=50, verbose_name = _("contact_name"))
+    subject = models.CharField(max_length=50, verbose_name = _("contact_subject"))
+    email = models.EmailField(verbose_name=_('contact_email'))
+    message = models.TextField(verbose_name = _("contact_message"))
+    created = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['created']
+        verbose_name = _('ContactUs')
+        verbose_name_plural = _('ContactUs')
+
+
 # --------------------------------------------------CUSTOMER----------------------------------------------------------
 
 GENDER_CHOICES = [

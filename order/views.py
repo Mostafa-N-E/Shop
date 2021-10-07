@@ -94,7 +94,7 @@ class CreateOrder(LoginRequiredMixin, CreateView):
         for product in order_items:
             order.order_items.add(product)
             order.save()
-
+        basket.clear()
         return HttpResponse("created")
 
 

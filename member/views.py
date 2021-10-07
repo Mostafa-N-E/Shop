@@ -1,10 +1,13 @@
 from django.contrib.auth import REDIRECT_FIELD_NAME
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from .models import Customer
+from .models import Customer, ContactUs
 from django.views import generic
-from django.views.generic import TemplateView, UpdateView
+from django.views.generic import TemplateView, UpdateView, CreateView
 from order.models import Order
 from django.contrib.auth.mixins import LoginRequiredMixin
+from .forms import ProfileForm, ContactUsForm
+
 
 class LoginView(TemplateView):
     """
@@ -61,12 +64,17 @@ class ProfileView(LoginRequiredMixin, generic.DetailView):
     template_name = "member/customer/profile.html"
     login_url = "/member/login/"
     redirect_field_name = "next"
+
     # raise_exception = True
 
+    def get_object(self, queryset=None):
+        customer = Customer.objects.get(pk=self.request.user.id)
+        return customer
+
     def get_context_data(self, **kwargs):
-        customer = Customer.objects.get(pk=self.kwargs['pk'])
+        customer = self.get_object()
         recent_orders = Order.objects.all().order_by('-order_base__created')[:5]
-        return {'customer': customer,'recent_orders': recent_orders,}
+        return {'customer': customer, 'recent_orders': recent_orders, }
 
 
 class Profile_edit(LoginRequiredMixin, UpdateView):
@@ -74,11 +82,28 @@ class Profile_edit(LoginRequiredMixin, UpdateView):
             Enable users visit their information and edit Items that have access with this view
     """
     model = Customer
-    fields = ['username', 'first_name', 'last_name', 'phone_number', 'email', 'phone_number', 'gender', 'address', 'postal_code', 'city',]
+    form_class = ProfileForm
     # form_class = CustomerForm
     template_name = 'member/customer/edit_info.html'
     login_url = "/member/login/"
 
+    def get_object(self, queryset=None):
+        customer = Customer.objects.get(pk=self.request.user.id)
+        return customer
+
     def get_success_url(self):
         self.success_url = self.request.path
+        return self.success_url
 
+
+class Contact_us(CreateView):
+    """
+
+    """
+    model = ContactUs
+    form_class = ContactUsForm
+
+    # def get_success_url(self):
+    #     get_lang = self.request.path.split('/')
+    #     print(self.request.path)
+    #     return redirect(f'/{get_lang[1]}/home/')

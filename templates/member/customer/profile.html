@@ -6,20 +6,10 @@
 
 {% block title %} Profile {% endblock %}
 
-{% block account_nav-menu %}
-    <div style="margin-top: 90px;">
 
-    </div>
-{% endblock %}
-
-{% block shop_nav-menu %}
-    <div style="margin-bottom: 90px;">
-
-    </div>
-{% endblock %}
 
 {% block pagenaiton_nav-menu %}
-    <div style="margin-top: 240px;margin-bottom: 240px;">
+    <div style="margin-top: 20vh;margin-bottom: 20vh;">
         <li class="active">
             <a href="{% url 'order:list_orders' %}">
                 <i class='bx bxs-archive-in'></i><span>{% translate 'My orders' %}</span>
@@ -39,7 +29,7 @@
 {% endblock %}
 
 {% block profile %}
-    <section id="profile" class="about" style="margin-bottom: 100px">
+    <section id="profile" class="about" style="margin-bottom: 5vh">
         <div class="container aos-init aos-animate" data-aos="fade-up">
 
             <div class="section-title">
@@ -51,7 +41,7 @@
                     {% if customer.image %}
                         <img src="{{ customer.image.url }}" class="img-fluid" alt="">
                     {% else %}
-                        <img width="300px" style="margin-bottom: 4vh" src="{% static 'img/user.svg' %}">
+                        <img width="300vm" style="margin-bottom: 4vh" src="{% static 'img/user.svg' %}">
                     {% endif %}
                 </div>
                 <div class="col-lg-8 pt-4 pt-lg-0 content" style="margin-top: 4vh">
@@ -92,7 +82,7 @@
                     </div>
                     <hr>
                     <div class="d-flex justify-content-end">
-                        <a href="{% url 'customer_profile_edit' request.user.id %}">
+                        <a href="{% url 'customer_profile_edit'%}">
                             <button type="button" class="btn btn-primary " style="border-radius: 25px;">
                                 {% translate 'Edit your profile' %}
                             </button>
@@ -107,7 +97,7 @@
 {% endblock %}
 
 {% block recent_orders %}
-    <section id="recent_orders" class="about" style="margin-bottom: 100px">
+    <section id="recent_orders" class="about" style="margin-bottom: 10vh">
         <div class="container" data-aos="fade-up">
 
             <div class="section-title">

@@ -12,7 +12,7 @@
             </a>
         </li>
         <li class="active ">
-            <a href="{% url 'products:show_products' %}">
+            <a href="{% url 'home' %}">
                 <i class="bx bx-home"></i> <span>{% translate 'Home' %}</span>
             </a>
         </li>
@@ -32,7 +32,7 @@
                 <h2>{% translate 'Profile edit' %}</h2>
             </div>
             <div class="card">
-                <form method="post" action="{% url 'customer_profile_edit' request.user.id %}"
+                <form method="post" action="{% url 'customer_profile_edit' %}"
                       enctype="multipart/form-data">
                     {% csrf_token %}
                     <!-- card-body -->

@@ -8,7 +8,7 @@
     <div style="margin-top: 90px;">
         {% if request.user.is_authenticated %}
             <li class="active">
-                <a href="{% url 'customer_login' %}">
+                <a href="{% url 'customer_profile' %}">
                     <i class='bx bxs-user-account'></i><span>{% translate 'Account' %}</span>
                 </a>
             </li>

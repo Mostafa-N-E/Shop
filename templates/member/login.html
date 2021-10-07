@@ -5,7 +5,7 @@
 {% block title %} {% translate 'Login' %} {% endblock %}
 
 {% block pagenaiton_nav-menu %}
-    <div style="margin-top: 240px;margin-bottom: 240px;">
+    <div style="margin-top: 20vh;margin-bottom: 20vh;">
         <li class="active ">
             <a href="{% url 'home' %}">
                 <i class="bx bx-home"></i> <span>{% translate 'Home' %}</span>
@@ -24,18 +24,18 @@
             </div>
             <div class="row justify-content-center">
                 <div class="col-md-7 col-lg-5">
-                    <div class="card login p-4 p-md-5 " style="height: 45vh;margin-top: 10vh">
+                    <div class="card login p-4 p-md-5 " style="margin-top: 15vh">
                         <div class="icon d-flex align-items-center justify-content-center mb-2">
-                            <img width="100px" src="{% static 'img/user.png' %}">
+                            <img width="100vm" src="{% static 'img/user.png' %}">
                         </div>
                         <h3 class="text-center mb-4">{% translate 'Sign In' %}</h3>
                         <form action="#" id="login_form" class="login mt-4" method="post" value="{{ csrf_token }}">
                             <div class="form-group ">
-                                <input id="username" type="text" class="form-control mt-1"
+                                <input id="username" type="text" class="form-control mt-1 button"
                                        placeholder="{% translate 'Username' %}" required>
                             </div>
                             <div class="form-group d-flex mt-2">
-                                <input id="password" type="password" class="form-control mt-1"
+                                <input id="password" type="password" class="form-control mt-1 button"
                                        placeholder="{% translate 'Password' %}" required>
                             </div>
                             <div class="form-group">
