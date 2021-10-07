@@ -10,7 +10,6 @@ class RegistrationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Customer
         fields = ['username', 'email', 'password', 'password_Confirmation', ]
-
         extra_kwargs = {
             'password': {'write_only': True},
         }
@@ -37,3 +36,10 @@ class RegistrationSerializer(serializers.ModelSerializer):
         new_customer.save()
 
         return new_customer
+
+class ResetPasswordByEmailSerializer(serializers.ModelSerializer):
+    email = serializers.EmailField(error_messages={'blank': '.ایمیل وارد نشده', }, )
+
+    class Meta:
+        model = Customer
+        fields = ['email']

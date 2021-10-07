@@ -2,12 +2,14 @@ from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.shortcuts import render, redirect
 from .models import Customer
 from django.views import generic
-from django.views.generic import TemplateView, UpdateView, View
+from django.views.generic import TemplateView, UpdateView
 from order.models import Order
-
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 class LoginView(TemplateView):
+    """
+            Login (this view only render template for LoginAPI) users
+    """
     template_name = "member/login.html"
 
     redirect_field_name = REDIRECT_FIELD_NAME
@@ -20,21 +22,31 @@ class LoginView(TemplateView):
         if self.request.user.is_authenticated:
             if 'next' in self.request.get_full_path():
                 return self.get_redirect_url()
-            return redirect('/products/home/')
+            get_lang = self.request.path.split('/')
+            return redirect(f'/{get_lang[1]}/home/')
         return render(self.request, self.template_name)
 
 
-
-
 class RegisterView(TemplateView):
+    """
+            registration (this view only render template for RegistrationAPI) users
+    """
     template_name = "member/register.html"
 
 
 class PasswordChangeView(TemplateView):
+    """
+            Enable users to change passwords via with this view
+            (this view only render template for PasswordChangeAPI)
+    """
     template_name = "member/password_change.html"
 
 
 class PasswordResetView(TemplateView):
+    """
+            Enable users to recover passwords via email with this view
+            (this view only render template for PasswordResetAPI)
+    """
     template_name = "member/password_reset.html"
 
 
@@ -42,6 +54,9 @@ class PasswordResetView(TemplateView):
 #     template_name = "member/customer/profile.html"
 
 class ProfileView(LoginRequiredMixin, generic.DetailView):
+    """
+            Enable users visit their information with this view
+    """
     model = Customer
     template_name = "member/customer/profile.html"
     login_url = "/member/login/"
@@ -55,6 +70,9 @@ class ProfileView(LoginRequiredMixin, generic.DetailView):
 
 
 class Profile_edit(LoginRequiredMixin, UpdateView):
+    """
+            Enable users visit their information and edit Items that have access with this view
+    """
     model = Customer
     fields = ['username', 'first_name', 'last_name', 'phone_number', 'email', 'phone_number', 'gender', 'address', 'postal_code', 'city',]
     # form_class = CustomerForm
@@ -62,5 +80,5 @@ class Profile_edit(LoginRequiredMixin, UpdateView):
     login_url = "/member/login/"
 
     def get_success_url(self):
-        self.success_url = f'http://127.0.0.1:8000/member/profile/{self.request.user.id}'
+        self.success_url = self.request.path
 

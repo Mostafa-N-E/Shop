@@ -19,23 +19,27 @@ from djangoShop import settings
 from django.conf.urls.static import static
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from dj_rest_auth.views import PasswordResetConfirmView
+from django.conf.urls.i18n import i18n_patterns
 
-# from rest_framework.authtoken import views
+from product.views import change_lang, Home
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('products/', include('product.urls')),
-    path('member/', include('member.urls')),
-    path('basket/', include('basket.urls')),
-    path('order/', include('order.urls')),
+    path('change_lang/', change_lang, name='change_lang'),
     # path('api-token-auth/', views.obtain_auth_token)
     path('api/rest-auth/', include('dj_rest_auth.urls')),
     # path('api/rest-auth/registration/', include('dj_rest_auth.registration.urls')),
-    path('api/registration/', include('member.api.urls')),
+    path('api/', include('member.api.urls')),
     path('api/rest-auth/password/reset/confirm/<uidb64>/<tocken>/', PasswordResetConfirmView.as_view(),
          name='password_reset_confirm'),
 
 ]
-
+urlpatterns += i18n_patterns(
+    path('admin/', admin.site.urls),
+    path('home/', Home.as_view(), name='home'),
+    path('products/', include('product.urls')),
+    path('member/', include('member.urls')),
+    path('basket/', include('basket.urls')),
+    path('order/', include('order.urls')),
+)
 urlpatterns += staticfiles_urlpatterns()
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

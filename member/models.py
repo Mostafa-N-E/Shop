@@ -1,6 +1,8 @@
 from django.db import  models
 from django.contrib.auth import get_user_model
 # from order.models import OrderItem
+from django.utils.translation import gettext_lazy as _
+from translated_fields import TranslatedField
 
 User = get_user_model()
 # --------------------------------------------------CUSTOMER----------------------------------------------------------
@@ -11,12 +13,17 @@ GENDER_CHOICES = [
 ]
 
 class Customer(User):
-    phone_number = models.CharField(max_length=15 ,null=True, blank=True)
-    gender = models.PositiveIntegerField(choices=GENDER_CHOICES, db_index = True, verbose_name = "Gender",null=True, blank=True)
-    address = models.CharField(verbose_name='Address', max_length=250, null=True, blank=True)  #
-    postal_code = models.CharField(verbose_name='Postal Code', max_length=20, null=True, blank=True)   #
-    city = models.CharField(verbose_name='City', max_length=100, null=True, blank=True)   #
+    phone_number = models.CharField(max_length=15, verbose_name = _("phone_number"),null=True, blank=True)
+    gender = models.PositiveIntegerField(choices=GENDER_CHOICES, db_index = True, verbose_name = _("Gender"),null=True, blank=True)
+    address = models.CharField(verbose_name=_('Address'), max_length=250, null=True, blank=True)  #
+    postal_code = models.CharField(verbose_name=_('Postal Code'), max_length=20, null=True, blank=True)   #
+    city = models.CharField(verbose_name=_('City'), max_length=100, null=True, blank=True)   #
     # orders = models.ManyToManyField(OrderItem,verbose_name='Customer orders', related_name='customer_orders', null=True, blank=True)
+
+    class Meta:
+        ordering = ['id']
+        verbose_name = _('Customer')
+        verbose_name_plural = _('Customers')
 
     def register(self):
         self.save()

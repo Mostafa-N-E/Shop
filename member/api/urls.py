@@ -13,9 +13,9 @@ from django.urls import path, re_path
 
 from django.urls import path, include
 
-from .views import Register
+from .views import Register, RequestResetPasswordEmail
 
 urlpatterns = [
-    path('', Register.as_view(), name='register'),
-
+    path('registration/', Register.as_view(), name='register'),
+    path('password/reset/', RequestResetPasswordEmail.as_view(), name='password_reset'),
 ]

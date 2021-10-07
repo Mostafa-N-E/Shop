@@ -10,7 +10,7 @@ from .models import Category, Product, ProductImage
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ['name', 'slug']
-    prepopulated_fields = {'slug': ('name', )}
+    prepopulated_fields = {'slug': ('name_en', )}
     # list_editable = ['image']
 
 @admin.register(Product)
@@ -18,7 +18,7 @@ class ProductAdmin(admin.ModelAdmin):
     list_display = [ 'category', 'name', 'slug', 'price', 'stock', 'available', 'created', 'updated']
     list_filter = ['available', 'created', 'updated']
     list_editable = ['price', 'stock', 'available',]
-    prepopulated_fields = {'slug': ('name', )}
+    prepopulated_fields = {'slug': ('name_en', )}
 
     @admin.action(description="تغییر وضعیت محصول به  'در دسترس'")
     def change_availableــtrue(self, request, queryset):

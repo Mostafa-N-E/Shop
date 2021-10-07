@@ -3,34 +3,35 @@ from product.models import Product
 from member.models import Customer
 from cupon.models import Cupon
 from decimal import Decimal
+from django.utils.translation import gettext_lazy as _
 
 
 class BaseOrder(models.Model):
-    customer = models.ForeignKey(Customer, related_name='customer_order', on_delete=models.CASCADE)
-    created = models.DateTimeField(verbose_name='Created', auto_now_add=True)
-    updated = models.DateTimeField(verbose_name='Updated', auto_now=True)
-    paid = models.BooleanField(verbose_name='Paid', default=False)
-    status_code = ((1, 'cancel'),
-                   (2, 'success'),
-                   (3, 'process'),
-                   (4, 'deliver'),
-                   (5, 'send'),
-                   (6, 'active'))
+    customer = models.ForeignKey(Customer, related_name='customer_order', on_delete=models.CASCADE, verbose_name = _("customer"))
+    created = models.DateTimeField(verbose_name=_('Created'), auto_now_add=True)
+    updated = models.DateTimeField(verbose_name=_('Updated'), auto_now=True)
+    paid = models.BooleanField(verbose_name=_('Paid'), default=False)
+    status_code = ((1, _('cancel')),
+                   (2, _('success')),
+                   (3, _('process')),
+                   (4, _('deliver')),
+                   (5, _('send')),
+                   (6, _('active')))
     status = models.IntegerField(choices=status_code, default=3)
 
     class Meta:
         ordering = ('-created', )
-        verbose_name = 'Order'
-        verbose_name_plural = 'Orders'
+        verbose_name = _('Order')
+        verbose_name_plural = _('Orders')
 
     def __str__(self):
         return f'Order: {self.id}'
 
 
 class OrderItem(models.Model):
-    product = models.ForeignKey(Product, related_name='products_order',on_delete=models.CASCADE)
-    color = models.CharField(max_length = 200, verbose_name = "Color", null=True, blank=True)
-    size = models.CharField(max_length = 200, verbose_name = "Size", null=True, blank=True)
+    product = models.ForeignKey(Product, related_name='products_order',on_delete=models.CASCADE, verbose_name = _("Color"))
+    color = models.CharField(max_length = 200, verbose_name = _("Color"), null=True, blank=True)
+    size = models.CharField(max_length = 200, verbose_name = _("Size"), null=True, blank=True)
     quantity = models.IntegerField(default=1)
 
     def __str__(self):
@@ -41,9 +42,9 @@ class OrderItem(models.Model):
 
 
 class Order(models.Model):
-    order_base = models.ForeignKey(BaseOrder, related_name='order_base', on_delete=models.CASCADE)
-    order_items = models.ManyToManyField(OrderItem, related_name='order_items')
-    paymentـtrackingـcode = models.IntegerField(null=True, blank=True) # for test this field is null
+    order_base = models.ForeignKey(BaseOrder, related_name='order_base', on_delete=models.CASCADE, verbose_name = _("order base"))
+    order_items = models.ManyToManyField(OrderItem, related_name='order_items', verbose_name = _("order items"))
+    paymentـtrackingـcode = models.IntegerField(null=True, blank=True, verbose_name = _("payment tracking code")) # for test this field is null
 
     def __str__(self):
         return f'{self.id}'

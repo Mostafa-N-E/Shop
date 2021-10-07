@@ -1,23 +1,19 @@
-{#{% extends 'base.html' %}#}
+
 {% load static %}
 {% load i18n %}
-{##}
-{#{% block title %}  {% endblock %}#}
-
-{#{% block products %}#}
 
 <!-- ======= Portfolio Section ======= -->
-<section id="products" class="portfolio section-bg">
+<section id="products" class="portfolio section-bg min-vh-100">
     <div class="container" data-aos="fade-up">
 
         <div class="section-title">
-            <h2>{% translate 'Porducts' %}</h2>
+            <h2>{% translate 'Most visited products last month' %}</h2>
         </div>
 
         <div class="row">
             <div class="col-lg-12 d-flex justify-content-center" data-aos="fade-up" data-aos-delay="100">
                 <ul id="portfolio-flters">
-                    <li data-filter="*" class="filter-active">All</li>
+                    <li data-filter="*" class="filter-active">{% translate 'All' %}</li>
                     {% for category in categories %}
                         <li data-filter=".{{ category }}">{{ category }}</li>
                     {% endfor %}
@@ -56,41 +52,6 @@
                 </div>
 
             {% endfor %}
-        </div>
-        <div class="pagination d-flex justify-content-between mb-3">
-            {% if products_list.has_previous %}
-                <div class="p-5">
-                    <a href="{% url 'products:show_products' %}?page=1">
-                        <button type="button" class="btn btn-outline-primary" style="border-radius: 25px">
-                            &laquo; {% translate 'first' %}
-                        </button>
-                    </a>
-                    <a href="{% url 'products:show_products' %}?page={{ products_list.previous_page_number }}">
-                        <button type="button" class="btn btn-outline-primary" style="border-radius: 25px;">
-                            {% translate 'previous' %}
-                        </button>
-                    </a>
-                </div>
-            {% endif %}
-
-            <div class="p-5">
-                Page {{ products_list.number }} of {{ products_list.paginator.num_pages }}.
-            </div>
-
-            {% if products_list.has_next %}
-                <div class="p-5">
-                    <a href="{% url 'products:show_products' %}?page={{ products_list.next_page_number }}">
-                        <button type="button" class="btn btn-outline-primary" style="border-radius: 25px; ">
-                            {% translate 'next' %}
-                        </button>
-                    </a>
-                    <a href="{% url 'products:show_products' %}?page={{ products_list.paginator.num_pages }}">
-                        <button type="button" class="btn btn-outline-primary" style="border-radius: 25px;">
-                            {% translate 'last' %} &raquo;
-                        </button>
-                    </a>
-                </div>
-            {% endif %}
         </div>
     </div>
 

@@ -7,7 +7,7 @@
 {% block pagenaiton_nav-menu %}
     <div style="margin-top: 240px;margin-bottom: 240px;">
         <li class="active ">
-            <a href="{% url 'products:show_products' %}">
+            <a href="{% url 'home' %}">
                 <i class="bx bx-home"></i> <span>{% translate 'Home' %}</span>
             </a>
         </li>
@@ -15,7 +15,7 @@
 {% endblock %}
 
 {% block content %}
-    <section class="ftco-section">
+    <section class="ftco-section min-vh-100">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-6 text-center mb-5">
@@ -50,7 +50,7 @@
                                 <a href="{% url 'customer_register' %}">{% translate 'Create account' %}</a>
                             </div>
                             <div class="">
-                                <a href="#">{% translate 'Forgot Password' %}</a>
+                                <a href="{% url 'customer_password_reset' %}">{% translate 'Forgot Password' %}</a>
                             </div>
                         </div>
                     </div>
@@ -58,7 +58,7 @@
             </div>
         </div>
     </section>
-    <a id="HOME" href="{% url 'products:show_products' %}" type=""> </a>
+    <a id="HOME" href="{% url 'home' %}" type=""> </a>
 {% endblock %}
 
 {% block CSS %}

@@ -80,13 +80,13 @@
             <div>
                 {% if LANGUAGE_CODE == 'en' %}
                     <li class="active">
-                        <a href="{% url 'products:change_lang' %}?lang=fa&next={{ request.path }}">
+                        <a href="{% url 'change_lang' %}?lang=fa&next=/fa/{{ request.path|slice:'4:' }}">
                             <i class='bx  bx-right-arrow'></i><span>{% translate 'Persian' %}</span>
                         </a>
                     </li>
                 {% else %}
                     <li class="active">
-                        <a href="{% url 'products:change_lang' %}?lang=en&next={{ request.path }}">
+                        <a href="{% url 'change_lang' %}?lang=en&next=/en/{{ request.path|slice:'4:' }}">
                             <i class="bx bx-right-arrow"></i> <span>{% translate 'English' %}</span>
                         </a>
                     </li>
@@ -102,7 +102,7 @@
 {% endblock %}
 <!-- End Hero -->
 
-<main id="main" class="d-flex flex-column min-vh-100">
+<main id="main" class="d-flex flex-column ">
     <!-- ======= testimonials Section ======= -->
     {% block testimonials %}
 
@@ -191,7 +191,7 @@
             <a href="">{% translate 'Mostafa Nanari' %}</a>
         </div>
     </div>
-    <a id="HOME" href="{% url 'products:show_products' %}" type=""> </a>
+    <a id="HOME" href="{% url 'home' %}" type=""> </a>
 </footer><!-- End Footer -->
 
 <a href="#" class="back-to-top"><i class="bx bx-up-arrow-alt"></i></a>

@@ -26,7 +26,7 @@
 {% block shop_nav-menu %}
     <div style="margin-bottom: 90px;">
         <li class="active">
-            <a href="{% url 'customer_login' %}">
+            <a href="{% url 'basket:basket' %}">
                 <i class='bx bx-basket'></i><span>{% translate 'Basket' %}</span>
             </a>
         </li>
@@ -36,7 +36,7 @@
 {% block pagenaiton_nav-menu %}
     <div style="margin-top: 240px;margin-bottom: 240px;">
         <li class="active ">
-            <a href="{% url 'products:show_products' %}">
+            <a href="{% url 'home' %}">
                 <i class="bx bx-home"></i> <span>{% translate 'Home' %}</span>
             </a>
         </li>
@@ -45,7 +45,7 @@
 
 
 {% block basket %}
-    <section id="basket" class="portfolio section-bg" >
+    <section id="basket" class="portfolio section-bg min-vh-100" >
         <div class="container" data-aos="fade-up">
 
             <div class="section-title">

@@ -36,7 +36,7 @@
 {% block pagenaiton_nav-menu %}
     <div style="margin-top: 240px;margin-bottom: 240px;">
         <li class="active ">
-            <a href="{% url 'products:show_products' %}">
+            <a href="{% url 'home' %}">
                 <i class="bx bx-home"></i> <span>{% translate 'Home' %}</span>
             </a>
         </li>
@@ -45,14 +45,14 @@
 
 
 {% block products %}
-    <section id="products" class="portfolio section-bg" style="margin-bottom: 500px">
-        <div class="container" data-aos="fade-up">
+    <section id="products" class="portfolio section-bg min-vh-100" >
+        <div class="container " data-aos="fade-up">
 
             <div class="section-title">
                 <h2>{% translate 'Porducts in' %} {{ category.name }}</h2>
             </div>
 
-            <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="200">
+            <div class="row portfolio-container min-vh-100" data-aos="fade-up" data-aos-delay="200">
                 {% for product in products_list %}
 
                     <div class="col-lg-4 col-md-6 portfolio-item {{ product.category }}">
@@ -87,7 +87,7 @@
                 {% endfor %}
 
             </div>
-            <div class="pagination d-flex justify-content-between mb-3">
+            <div class="pagination d-flex justify-content-between mb-3" >
                 {% if products_list.has_previous %}
                     <div class="p-5">
                         <a href="{% url 'products:show_category_products' category.slug %}?page=1">

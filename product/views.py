@@ -1,34 +1,33 @@
 from django.shortcuts import render, redirect
 from django.views import generic
-
 from .models import Product, Category, ProductImage
 from django.utils.translation import activate
-
-from django.db.models import Count, Q,Case, When, IntegerField
+from django.db.models import Count, Q
 from datetime import datetime, timedelta
-
 from django.core.paginator import Paginator
 
-class Products(generic.ListView):
+
+class Home(generic.ListView):
+    """
+
+    """
     model = Product
     template_name = 'home.html'
 
     def get(self, request, *args, **kwargs):
         last_month = datetime.today() - timedelta(days=30)
         products = Product.objects.all().annotate(
-            count=Count('hits', filter=Q(producthits__created__gt =last_month))
+            count=Count('hits', filter=Q(producthits__created__gt=last_month))
         ).order_by('-count')
-        # contact_list = Contact.objects.all()
-        paginator = Paginator(products, 5)  # Show 25 contacts per page.
-        page_number = request.GET.get('page')
-        products_list = paginator.get_page(page_number)
-
         categories = Category.objects.all()
-        context = {'products_list': products_list, 'categories': categories, }
+        context = {'products_list': products, 'categories': categories, }
         return render(request, 'home.html', context)
 
 
 class Category_Products(generic.ListView):
+    """
+
+    """
     model = Product
     template_name = 'product/products__category.html'
 
@@ -45,6 +44,9 @@ class Category_Products(generic.ListView):
 
 
 class ProductDetail(generic.DetailView):
+    """
+
+    """
     model = Product
 
     def get(self, request, *args, **kwargs):
@@ -58,5 +60,8 @@ class ProductDetail(generic.DetailView):
 
 
 def change_lang(request):
+    """
+
+    """
     activate(request.GET.get('lang'))
     return redirect(request.GET.get('next'))

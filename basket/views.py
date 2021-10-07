@@ -12,6 +12,9 @@ from django.template.defaulttags import register
 
 
 class Basket(object):
+    """
+
+    """
     def __init__(self, request):
         self.session = request.session
         basket = self.session.get(settings.CART_SESSION_ID)
@@ -90,6 +93,9 @@ class Basket(object):
         return self.get_total_price() - self.get_discount()
 
 class BasketView(View):
+    """
+
+    """
     # initial = {'key': 'value'}
     template_name = 'basket/basket.html'
 

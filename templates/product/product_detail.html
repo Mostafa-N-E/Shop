@@ -36,7 +36,7 @@
 {% block pagenaiton_nav-menu %}
     <div style="margin-top: 240px;margin-bottom: 240px;">
         <li class="active ">
-            <a href="{% url 'products:show_products' %}">
+            <a href="{% url 'home' %}">
                 <i class="bx bx-home"></i> <span>{% translate 'Home' %}</span>
             </a>
         </li>
@@ -46,7 +46,7 @@
 
 {% block content %}
     <!-- ======= Portfolio Details ======= -->
-    <section id="portfolio-details" class="portfolio-details" style="margin-bottom: 150px">
+    <section id="portfolio-details" class="portfolio-details min-vh-100">
         <div class="container aos-init aos-animate" data-aos="fade-up">
             <div class="section-title">
                 {#                <img width="300px" style="margin-bottom: 4vh" src="{% static 'img/edit.svg' %}">#}

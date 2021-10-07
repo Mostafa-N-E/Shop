@@ -1,16 +1,18 @@
-from django.shortcuts import render, get_object_or_404, redirect, HttpResponse
+from django.shortcuts import render, HttpResponse
 from django.views import View
-from django.views.generic import UpdateView, DetailView, ListView, CreateView, DeleteView
-
+from django.views.generic import DetailView, ListView, CreateView, DeleteView
 from .models import Order, OrderItem, BaseOrder
 from product.models import Product
 from basket.views import Basket
 from member.models import Customer
 from django.template.defaulttags import register
-
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-class OrderView(LoginRequiredMixin,View):
+
+class OrderView(LoginRequiredMixin, View):
+    """
+
+    """
     template_name = 'order/order.html'
     login_url = "/member/login/"
 
@@ -37,7 +39,10 @@ class OrderView(LoginRequiredMixin,View):
 #         return render(request, self.template_name, context=context)
 
 
-class ListOrder(LoginRequiredMixin,ListView):
+class ListOrder(LoginRequiredMixin, ListView):
+    """
+
+    """
     model = Order
     context_object_name = 'orders'
     template_name = 'order/orders.html'
@@ -47,21 +52,23 @@ class ListOrder(LoginRequiredMixin,ListView):
         customer = Customer.objects.get(id=request.user.id)
         orders = Order.objects.filter(order_base__customer=customer).order_by('-order_base__created')
         # orders_filter_by_status = {i+1:Order.objects.filter(order_base__customer=customer).filter(order_base__status=i).count() for i in range(BaseOrder.status_code.__len__())}
-        return render(request, self.template_name, context={'orders': orders,})
+        return render(request, self.template_name, context={'orders': orders, })
 
 
-class DetailOrder(LoginRequiredMixin,DetailView):
+class DetailOrder(LoginRequiredMixin, DetailView):
+    """
+
+    """
     model = Order
     context_object_name = 'order'
     template_name = 'order/order_detail.html'
     login_url = "/member/login/"
 
-    # def get(self, request, *args, **kwargs):
-    #     order = Order.objects.get(pk=self.kwargs['pk'])
-    #     return render(request, self.template_name, context={'order': order,})
 
+class CreateOrder(LoginRequiredMixin, CreateView):
+    """
 
-class CreateOrder(LoginRequiredMixin,CreateView):
+    """
     model = OrderItem
     login_url = "/member/login/"
     # template_name = 'order/create_order.html'
@@ -88,29 +95,27 @@ class CreateOrder(LoginRequiredMixin,CreateView):
             order.order_items.add(product)
             order.save()
 
-        # order = Order(customer=customer, order_items=OrderItem.objects.filter(id__in=order_items))
-        # order.save()
         return HttpResponse("created")
 
 
-class DeleteOrder(LoginRequiredMixin,DeleteView):
+class DeleteOrder(LoginRequiredMixin, DeleteView):
+    """
+
+    """
     model = BaseOrder
     login_url = "/member/login/"
 
 
 @register.filter
 def get_range(int):
-    return range(1,int+1)
+    return range(1, int + 1)
+
 
 @register.filter
-def get_number_of_order(status,customer_id):
+def get_number_of_order(status, customer_id):
     return Order.objects.filter(order_base__customer_id=customer_id).filter(order_base__status=status).count()
-
 
 # class UpdateOrder(UpdateView):
 #     model = Order
 #     fields = []
 #     template_name = 'order/update_order.html'
-
-
-

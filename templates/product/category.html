@@ -10,10 +10,10 @@
 
             {% for category in categories %}
                 <a href="{% url 'products:show_category_products' category.slug %}">
-                    <div class="col-lg-3 col-md-6 d-flex align-items-stretch aos-init aos-animate" data-aos="zoom-in"
-                         data-aos-delay="100">
-                        <div class="icon-box iconbox-blue">
-                            <img src="{{ category.image.url }}" class="img-circle " width="200vm" height="200vm"
+                    <div class="col-lg-3 col-md-6 d-flex align-items-stretch " data-aos="zoom-in"
+                         data-aos-delay="100" >
+                        <div class="icon-box icon box-blue" >
+                            <img src="{{ category.image.url }}" class="img-circle " width="200vm" height="200vh"
                                  alt="..."
                                  style="border-radius: 50%;">
                             <h4>

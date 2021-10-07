@@ -25,15 +25,15 @@
 {% endblock %}
 
 {% block edit_info %}
-    <section id="profile_edit" class="about" style="margin-bottom: 500px">
+    <section id="profile_edit" class="about">
         <div class="container aos-init aos-animate" data-aos="fade-up">
             <div class="section-title">
                 <img width="300px" style="margin-bottom: 4vh" src="{% static 'img/edit.svg' %}">
                 <h2>{% translate 'Profile edit' %}</h2>
             </div>
-
             <div class="card">
-                <form method="post" action="{% url 'customer_profile_edit' request.user.id %}"enctype="multipart/form-data">
+                <form method="post" action="{% url 'customer_profile_edit' request.user.id %}"
+                      enctype="multipart/form-data">
                     {% csrf_token %}
                     <!-- card-body -->
                     <div class="card-body content">
@@ -86,6 +86,25 @@
                 </form>
             </div>
 
+            <div class="card m-5">
+                <!-- card-body -->
+                <div class="card-body content">
+                    <div class="mb-3 d-flex justify-content-between">
+                        <div class="m-3">
+                            <i class="icofont-rounded-right"></i>
+                            {% translate 'Change password' %}
+                        </div>
+                        <div class="m-3">
+                            <a href="{% url 'customer_password_change' %}">
+                                <button type="submit" class="btn btn-primary " style="border-radius: 25px;">
+                                    {% translate 'Change password' %}
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.card-body -->
+            </div>
         </div>
     </section>
 {% endblock %}
