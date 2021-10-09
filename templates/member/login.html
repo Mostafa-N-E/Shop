@@ -58,6 +58,19 @@
             </div>
         </div>
     </section>
+    <!-- The Modal -->
+    <div class="modal fade" id="myModal">
+        <div class="modal-dialog ">
+            <div class="modal-content">
+                <!-- Modal body -->
+                <div class="modal-body text-center ">
+                    <button type="button" class="close" data-dismiss="modal">×</button><br><hr>
+                    <h4 id="error-message">{% translate 'Error' %}</h4>
+                </div>
+
+            </div>
+        </div>
+    </div>
     <a id="HOME" href="{% url 'home' %}" type=""> </a>
 {% endblock %}
 
@@ -90,21 +103,12 @@
                 },
                 url: "/api/rest-auth/login/",
                 success: function () {
-
-                    //let href = $('#HOME').attr('href')
-                    //$.ajax({
-                    //    type: "GET",
-                    //    url: {% url 'customer_login' %},
-                    //})
                     location.reload();
-                    // window.location = href
-                    // $("#HOME").load(href);
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
-                    alert(xhr.responseText)
-                    // console.log(xhr.status)
-                    // console.log(ajaxOptions)
-                    // console.log(thrownError)
+                    $('#error-message').html(`${xhr.responseText}`)
+                    $("#myModal").modal();
+                    // alert(xhr.responseText)
                 }
             });
         });

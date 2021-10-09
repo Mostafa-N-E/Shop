@@ -45,7 +45,7 @@
 
 
 {% block basket %}
-    <section id="basket" class="portfolio section-bg min-vh-100" >
+    <section id="basket" class="portfolio section-bg min-vh-100">
         <div class="container" data-aos="fade-up">
 
             <div class="section-title">
@@ -56,13 +56,11 @@
             <div class="row justify-content-center" data-aos="fade-up" data-aos-delay="200">
                 {% for item in basket %}
 
-                    <div class="card m-2">
+                    <div class="card m-2" id="card-{{ item.id }}">
                         <div class="card-img-top">
                             <img src="{{ item.image_main.url }}" class="img" width="310vm" height="240vm" alt="...">
                         </div>
                         <div class="card-body content">
-                            {#                            <div class="row">#}
-                            {#                                <div class="col-12">#}
                             <ul>
                                 <li>
                                     <i class="icofont-rounded-right"></i>
@@ -77,8 +75,6 @@
                                     <i class="icofont-rounded-right"></i>
                                     <strong>{% translate 'Product name' %}:</strong> {{ item.namer }}</li>
                             </ul>
-                            {#                                </div>#}
-                            {#                            </div>#}
                         </div>
 
                         <div class="">
@@ -150,35 +146,45 @@
                     </div>
                 </div>
             {% endif %}
-
-
-        <a id="BASKET" href="{% url 'basket:basket' %}" type=""> </a>
-
-        <script>
-            // remove basket
-            function basket_remove(product_id) {
-                $.ajax({
-                    type: "GET",
-                    {#url: "/basket/?action=add&product_id=" + product_id,#}
-                    url: "/basket/remove/?product_id=" + product_id,
-
-                    success: function () {
-                        $('#card')
-                    },
-                    error: function (xhr, ajaxOptions, thrownError) {
-                        alert(xhr.responseText)
-                        console.log(xhr.status)
-                        console.log(ajaxOptions)
-                        console.log(thrownError)
-                    }
-                });
-            };
-
-            function alert_empty_basket() {
-                alert("Your basket is empty. ")
-            }
-        </script>
-
     </section><!-- End products Section -->
+    <!-- The Modal -->
+    <div class="modal fade" id="myModal">
+        <div class="modal-dialog ">
+            <div class="modal-content">
+                <!-- Modal body -->
+                <div class="modal-body text-center ">
+                    <button type="button" class="close" data-dismiss="modal">×</button><br><hr>
+                    <h4 id="error-message">{% translate 'Error' %}</h4>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <a id="BASKET" href="{% url 'basket:basket' %}" type=""> </a>
+    <script>
+        // remove basket
+        function basket_remove(product_id) {
+            $.ajax({
+                type: "GET",
+                url: "/basket/remove/?product_id=" + product_id,
+
+                success: function () {
+                    $(`#card-${product_id}`).remove()
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    $('#error-message').html(`${xhr.responseText}`)
+                    $("#myModal").modal();
+                    // alert(xhr.responseText)
+                }
+            });
+        };
+
+        function alert_empty_basket() {
+            $('#error-message').html("Your basket is empty. ")
+            $("#myModal").modal();
+            // alert("Your basket is empty. ")
+        }
+    </script>
+
 {% endblock %}
 

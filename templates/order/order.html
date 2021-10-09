@@ -168,42 +168,58 @@
                 </div>
             </div>
         </div>
-        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
-        <script>
-            function alert_address() {
-                alert("You don't have address. ")
-            };
-
-            // apply cupon
-            $("#apply").submit(function (e) {
-                e.preventDefault();
-                let form = $(this);
-                let cupon_id = $('#cupon_id').val();
-                let csrf = form.attr('value');
-                $.ajax({
-                    type: "POST",
-                    data: {
-                        'csrfmiddlewaretoken': csrf,
-                        'cupon_id': cupon_id
-                    },
-                    url: '/order/apply_cupon/',
-
-                    success: function () {
-                        location.reload();
-                    },
-                    error: function (xhr, ajaxOptions, thrownError) {
-                        alert(xhr.responseText)
-                    }
-                });
-            });
-
-            function alert_empty_basket() {
-                alert("Your basket is empty. ")
-            }
-        </script>
     </section><!-- End products Section -->
+    <!-- The Modal -->
+    <div class="modal fade" id="myModal">
+        <div class="modal-dialog ">
+            <div class="modal-content">
+                <!-- Modal body -->
+                <div class="modal-body text-center ">
+                    <button type="button" class="close" data-dismiss="modal">×</button><br><hr>
+                    <h4 id="error-message">{% translate 'Error' %}</h4>
+                </div>
 
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
+    <script>
+        // apply cupon
+        $("#apply").submit(function (e) {
+            e.preventDefault();
+            let form = $(this);
+            let cupon_id = $('#cupon_id').val();
+            let csrf = form.attr('value');
+            $.ajax({
+                type: "POST",
+                data: {
+                    'csrfmiddlewaretoken': csrf,
+                    'cupon_id': cupon_id
+                },
+                url: '/order/apply_cupon/',
 
+                success: function () {
+                    location.reload();
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    $('#error-message').html(`${xhr.responseText}`)
+                    $("#myModal").modal();
+                    // alert(xhr.responseText)
+                }
+            });
+        });
+
+        function alert_address() {
+            $('#error-message').html("You don't have address. ")
+            $("#myModal").modal();
+            // alert("You don't have address. ")
+        };
+        function alert_empty_basket() {
+            $('#error-message').html("Your basket is empty. ")
+            $("#myModal").modal();
+            // alert("Your basket is empty. ")
+        }
+    </script>
 
 {% endblock %}
 
