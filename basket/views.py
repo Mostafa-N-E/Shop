@@ -77,8 +77,8 @@ class Basket(object):
     @property
     def cupon(self):
         if self.cupon_id:
-            cupon = Cupon.objects.get(id=self.cupon_id)
-            if cupon.active:
+            cupon = Cupon.objects.get(code=self.cupon_id)
+            if cupon.active and (not cupon.is_used):
                 return cupon
         return None
 

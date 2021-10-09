@@ -35,7 +35,7 @@ class Category_Products(generic.ListView):
         last_month = datetime.today() - timedelta(days=30)
         slug = self.kwargs['slug']
         products = Product.objects.filter(category__slug=slug)
-        paginator = Paginator(products, 5)  # Show 25 contacts per page.
+        paginator = Paginator(products, 1)  # Show 25 contacts per page.
         page_number = request.GET.get('page')
         products_list = paginator.get_page(page_number)
         category = Category.objects.get(slug=slug)

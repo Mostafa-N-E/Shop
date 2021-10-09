@@ -22,10 +22,11 @@ from dj_rest_auth.views import PasswordResetConfirmView
 from django.conf.urls.i18n import i18n_patterns
 from product.views import change_lang, Home
 from member.views import Contact_us
-
+from order.views import apply_cupon
 
 urlpatterns = [
     path('change_lang/', change_lang, name='change_lang'),
+    path('order/apply_cupon/', apply_cupon, name='apply_cupon'),
     # path('api-token-auth/', views.obtain_auth_token)
     path('api/rest-auth/', include('dj_rest_auth.urls')),
     # path('api/rest-auth/registration/', include('dj_rest_auth.registration.urls')),

@@ -1,4 +1,5 @@
-from django.shortcuts import render, HttpResponse
+from django.http import HttpResponseForbidden, HttpResponseNotFound
+from django.shortcuts import render, HttpResponse, redirect
 from django.views import View
 from django.views.generic import DetailView, ListView, CreateView, DeleteView
 from .models import Order, OrderItem, BaseOrder
@@ -7,7 +8,7 @@ from basket.views import Basket
 from member.models import Customer
 from django.template.defaulttags import register
 from django.contrib.auth.mixins import LoginRequiredMixin
-
+from cupon.models import Cupon
 
 class OrderView(LoginRequiredMixin, View):
     """
@@ -94,8 +95,13 @@ class CreateOrder(LoginRequiredMixin, CreateView):
         for product in order_items:
             order.order_items.add(product)
             order.save()
+        if basket.cupon_id:
+            cupon = Cupon.objects.get(code=basket.cupon_id)
+            request.session['cupon_id'] = None
+            cupon.is_used = True
+            cupon.save()
         basket.clear()
-        return HttpResponse("created")
+        return HttpResponse(status=201) #,"created"
 
 
 class DeleteOrder(LoginRequiredMixin, DeleteView):
@@ -106,13 +112,38 @@ class DeleteOrder(LoginRequiredMixin, DeleteView):
     login_url = "/member/login/"
 
 
+def apply_cupon(request):
+    """
+
+    """
+    if request.method == 'POST':
+        cupon_id = request.POST.get('cupon_id')
+        try:
+            cupon = Cupon.objects.get(code=cupon_id)
+            if cupon.active and ( not cupon.is_used ):
+                request.session['cupon_id'] = cupon_id
+                return HttpResponse(status=200)
+            else:
+                return HttpResponseNotFound("Your discount code has expired")
+        except:
+            return HttpResponseNotFound("This cupon ID invalid")
+    else:
+        return HttpResponseForbidden()
+
+
 @register.filter
 def get_range(int):
+    """
+
+    """
     return range(1, int + 1)
 
 
 @register.filter
 def get_number_of_order(status, customer_id):
+    """
+
+    """
     return Order.objects.filter(order_base__customer_id=customer_id).filter(order_base__status=status).count()
 
 # class UpdateOrder(UpdateView):

@@ -24,6 +24,7 @@ class Category(models.Model):
     name = TranslatedField( models.CharField(max_length = 20, db_index = True, verbose_name = _("category name") ))
     slug = models.SlugField(max_length = 70, db_index = True, verbose_name = _("slug"))
     image = models.ImageField(upload_to = category_image_path, blank = True, verbose_name = _("Product Preview"))
+    description = TranslatedField(models.TextField(null=True,blank=True, verbose_name=_("Category_description")))
 
     class Meta:
         ordering = ['name_en']

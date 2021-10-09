@@ -5,7 +5,7 @@
 {% block title %}  {% endblock %}
 
 {% block account_nav-menu %}
-    <div style="margin-top: 90px;">
+    <div style="margin-top: 3vh">
         {% if request.user.is_authenticated %}
             <li class="active">
                 <a href="{% url 'customer_profile' %}">
@@ -24,7 +24,7 @@
 {% endblock %}
 
 {% block shop_nav-menu %}
-    <div style="margin-bottom: 90px;">
+    <div style="margin-bottom: 3vh">
         <li class="active">
             <a href="{% url 'customer_login' %}">
                 <i class='bx bx-basket'></i><span>{% translate 'Basket' %}</span>
@@ -34,7 +34,7 @@
 {% endblock %}
 
 {% block pagenaiton_nav-menu %}
-    <div style="margin-top: 240px;margin-bottom: 240px;">
+    <div style="margin-top: 5vh;margin-bottom: 5vh">
         <li class="active ">
             <a href="{% url 'home' %}">
                 <i class="bx bx-home"></i> <span>{% translate 'Home' %}</span>

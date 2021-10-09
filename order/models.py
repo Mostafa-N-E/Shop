@@ -43,8 +43,9 @@ class OrderItem(models.Model):
 
 class Order(models.Model):
     order_base = models.ForeignKey(BaseOrder, related_name='order_base', on_delete=models.CASCADE, verbose_name = _("order base"))
-    order_items = models.ManyToManyField(OrderItem, related_name='order_items', verbose_name = _("order items"))
+    order_items = models.ManyToManyField(OrderItem, related_name='order_items', verbose_name = _("order items"))  ###############
     paymentـtrackingـcode = models.IntegerField(null=True, blank=True, verbose_name = _("payment tracking code")) # for test this field is null
+    # cupon_id = models.CharField(max_length=50, verbose_name=_("cupon id"), null=True, blank=True)
 
     def __str__(self):
         return f'{self.id}'

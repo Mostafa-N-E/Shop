@@ -10,6 +10,7 @@ class Cupon(models.Model):
     valid_to = models.DateTimeField(verbose_name=_('valid_to'))
     discount = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(100)],verbose_name=_('discount'))
     active = models.BooleanField(verbose_name=_('active'))
+    is_used = models.BooleanField(verbose_name=_('is_used'),default=False)
 
     class Meta:
         ordering = ['id']
