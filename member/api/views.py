@@ -34,6 +34,8 @@ class RequestResetPasswordEmail(APIView):
         info = serializer.validated_data
         alphabet = string.ascii_letters + string.digits
         password = ''.join(secrets.choice(alphabet) for i in range(8))  # generated password (8-character)
+        customer.set_password(password)
+        customer.save()
         send_reset_password_mail(
             subject='درخواست بازیابی رمز عبور',
             message=f' {customer.first_name} عزیز، درخواست شما برای بازیابی رمز عبور دریافت شد. کد تایید شما جهت احراز هویت: {password}',
