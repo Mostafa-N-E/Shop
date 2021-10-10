@@ -1,9 +1,12 @@
+from django.http import HttpResponse
 from rest_framework import status
-from rest_framework.generics import CreateAPIView
+from rest_framework.generics import CreateAPIView, GenericAPIView
+from rest_framework.mixins import CreateModelMixin
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from .serializers import RegistrationSerializer, ResetPasswordByEmailSerializer
-from ..models import Customer
+from rest_framework import generics
+from .serializers import RegistrationSerializer, ResetPasswordByEmailSerializer, ContactUsSerializer
+from ..models import Customer, ContactUs
 from djangoShop.utils import send_reset_password_mail
 import secrets
 import string
@@ -37,3 +40,38 @@ class RequestResetPasswordEmail(APIView):
             recipient_list=[info['email']]
         )  # using multi-threading send the OTP using Email services
         return Response({'email': info['email']}, status=status.HTTP_200_OK)
+
+
+
+from rest_framework import mixins
+from rest_framework import generics
+
+class Contact_us(mixins.CreateModelMixin,
+                    GenericAPIView
+    # , generics.GenericAPIView
+                 ):
+    # queryset = Contact_us.objects.all()
+    serializer_class = ContactUsSerializer
+
+    def post(self, request, *args, **kwargs):
+        self.create(request, *args, **kwargs)
+        print("==================================")
+        print()
+        # ContactUs(name=self.serializer_class.validated_data)
+        return HttpResponse(status=201)
+
+# class Contact_us(CreateView):
+    # """
+    #
+    # """
+    # model = ContactUs
+    # form_class = ContactUsForm
+    #
+    # def get_success_url(self):
+    #     # self.success_url = self.request.path
+    #     return redirect('home/')
+
+    # def get_success_url(self):
+    #     get_lang = self.request.path.split('/')
+    #     print(self.request.path)
+    #     return redirect(f'/{get_lang[1]}/home/')

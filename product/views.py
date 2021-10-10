@@ -3,7 +3,7 @@ from django.views import generic
 from .models import Product, Category, ProductImage
 from django.utils.translation import activate
 from django.db.models import Count, Q
-from datetime import datetime, timedelta
+from django.utils import timezone
 from django.core.paginator import Paginator
 
 
@@ -15,7 +15,7 @@ class Home(generic.ListView):
     template_name = 'home.html'
 
     def get(self, request, *args, **kwargs):
-        last_month = datetime.today() - timedelta(days=30)
+        last_month = timezone.now() - timezone.timedelta(days=30)
         products = Product.objects.all().annotate(
             count=Count('hits', filter=Q(producthits__created__gt=last_month))
         ).order_by('-count')

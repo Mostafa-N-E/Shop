@@ -13,9 +13,10 @@ from django.urls import path, re_path
 
 from django.urls import path, include
 
-from .views import Register, RequestResetPasswordEmail
+from .views import Register, RequestResetPasswordEmail, Contact_us
 
 urlpatterns = [
     path('registration/', Register.as_view(), name='register'),
+    path('contact_us/', Contact_us.as_view(), name='contact_us'),
     path('password/reset/', RequestResetPasswordEmail.as_view(), name='password_reset'),
 ]

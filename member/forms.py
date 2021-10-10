@@ -15,7 +15,7 @@ class ProfileForm(forms.ModelForm):
                   'postal_code', 'city', ]
 
 
-class ContactUsForm(forms.ModelForm):
-    class Meta:
-        model = ContactUs
-        fields = ['name', 'subject', 'email', 'message', ]
+# class ContactUsForm(forms.ModelForm):
+#     class Meta:
+#         model = ContactUs
+#         fields = ['name', 'subject', 'email', 'message', ]

@@ -121,7 +121,7 @@
                                     <h4>{% translate 'Freelancer' %}</h4>
                                     <p>
                                         <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                                       {% translate ' Fugiat enim eram quae cillum dolore dolor amet nulla culpa multos export minim fugiat minim velit minim dolor enim duis veniam ipsum anim magna sunt elit fore quem dolore labore illum veniam.' %}
+                                        {% translate ' Fugiat enim eram quae cillum dolore dolor amet nulla culpa multos export minim fugiat minim velit minim dolor enim duis veniam ipsum anim magna sunt elit fore quem dolore labore illum veniam.' %}
                                         <i class="bx bxs-quote-alt-right quote-icon-right"></i>
                                     </p>
                                 </div>
@@ -243,7 +243,8 @@
 
                 <div class="col-lg-8 mt-5 mt-lg-0">
 
-                    <form action="{% url 'contact_us' %}" method="post" role="form" class="php-email-form">
+                    <form action="{% url 'contact_us' %}"name="{{ csrf_token }}" id="contact_us" method="post" role="form"
+                          class="">
                         {% csrf_token %}
                         <div class="form-row">
                             <div class="col-md-6 form-group">
@@ -266,18 +267,14 @@
                             <div class="validate"></div>
                         </div>
                         <div class="form-group">
-                            <textarea class="form-control" name="message" rows="5" data-rule="required"
+                            <textarea class="form-control" id="message" name="message" rows="5" data-rule="required"
                                       data-msg="Please write something for us"
                                       placeholder="{% translate 'Message' %}"></textarea>
                             <div class="validate"></div>
                         </div>
-                        <div class="mb-3">
-                            <div class="loading">{% translate 'Loading' %}</div>
-                            {#                            <div class="error-message"></div>#}
-                            <div class="sent-message">{% translate 'Your message has been sent. Thank you' %}!</div>
-                        </div>
                         <div class="text-center">
-                            <button type="submit">{% translate 'Send Message' %}</button>
+                            <button style="border-radius: 25px;background-color: #006BBF" class="btn btn-primary submit " type="submit">
+                                {% translate 'Send Message' %}</button>
                         </div>
                     </form>
 
@@ -287,5 +284,53 @@
 
         </div>
     </section>
+    <!-- The Modal -->
+    <div class="modal fade" id="Modal">
+        <div class="modal-dialog ">
+            <div class="modal-content">
+                <!-- Modal body -->
+                <div class="modal-body text-center ">
+                    <button type="button" class="close" data-dismiss="modal">×</button><br><hr>
+                    <h4 id="Modal-message">{% translate 'Your message has been sent. Thank you' %}</h4>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
+    <script>
+        // contact_us
+        $("#contact_us").submit(function (e) {
+            e.preventDefault();
+            let form = $(this);
+            let url = form.attr('action');
+            let csrf = form.attr('name');
+            let name = $('#name').val()
+            let email = $('#email').val()
+            let subject = $('#subject').val()
+            let message = $('#message').val()
+
+            $.ajax({
+                type: "POST",
+                //dataType: "json",
+                data: {
+                    'csrfmiddlewaretoken': csrf,
+                    'name': name,
+                    'email': email,
+                    'subject': subject,
+                    'message': message
+                },
+                url: url,
+                success: function () {
+                    $("#Modal").modal();
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    $('#Modal-message').html(`${xhr.responseText}`)
+                    $("#Modal").modal();
+                    // alert(xhr.responseText)
+                }
+            });
+        });
+    </script>
 {% endblock %}
 <!-- End Contact Section -->

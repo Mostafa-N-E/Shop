@@ -1,6 +1,6 @@
 # from dj_rest_auth.views import LoginView
 from rest_framework import serializers
-from member.models import Customer
+from member.models import Customer, ContactUs
 
 class RegistrationSerializer(serializers.ModelSerializer):
     password_Confirmation = serializers.CharField(write_only=True, style={
@@ -43,3 +43,9 @@ class ResetPasswordByEmailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Customer
         fields = ['email']
+
+
+class ContactUsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ContactUs
+        fields = ['name', 'subject', 'email', 'message', ]

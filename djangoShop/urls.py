@@ -21,7 +21,6 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from dj_rest_auth.views import PasswordResetConfirmView
 from django.conf.urls.i18n import i18n_patterns
 from product.views import change_lang, Home
-from member.views import Contact_us
 from order.views import apply_cupon
 
 urlpatterns = [
@@ -38,7 +37,6 @@ urlpatterns = [
 urlpatterns += i18n_patterns(
     path('admin/', admin.site.urls),
     path('home/', Home.as_view(), name='home'),
-    path('contact_us/', Contact_us.as_view(), name='contact_us'),
     path('products/', include('product.urls')),
     path('member/', include('member.urls')),
     path('basket/', include('basket.urls')),

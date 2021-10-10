@@ -6,7 +6,7 @@ from django.views import generic
 from django.views.generic import TemplateView, UpdateView, CreateView
 from order.models import Order
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .forms import ProfileForm, ContactUsForm
+from .forms import ProfileForm
 
 
 class LoginView(TemplateView):
@@ -96,14 +96,3 @@ class Profile_edit(LoginRequiredMixin, UpdateView):
         return self.success_url
 
 
-class Contact_us(CreateView):
-    """
-
-    """
-    model = ContactUs
-    form_class = ContactUsForm
-
-    # def get_success_url(self):
-    #     get_lang = self.request.path.split('/')
-    #     print(self.request.path)
-    #     return redirect(f'/{get_lang[1]}/home/')
