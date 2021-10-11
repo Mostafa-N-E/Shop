@@ -1,4 +1,4 @@
-# MyShop
+# Shop
 
 ## About Project
 
