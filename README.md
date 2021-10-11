@@ -2,7 +2,8 @@
 
 ## About Project
 
-The website displays products. Users can add and remove products to/from their cart while also specifying the quantity of each item. They can then enter their address and choose Stripe to handle the payment processing.
+The website displays products. Users can add and remove products to their basket while also specifying the quantity of each item. They can then enter their address and choose Stripe to handle the payment processing.
+
 [![alt text](https://github.com/Mostafa-N-E/Shop-static/blob/main/static/img/view.jpg?raw=true "Logo")](https://github.com/Mostafa-N-E/Shop-static/blob/main/static/img/view.jpg)
 
 ---
@@ -48,7 +49,7 @@ and execute this command
 python manage.py collectstatic   
 ```
 
-Now you can run the project with this command:
+Now you can run the project with this commands:
 
 ```
 python manage.py makemigrations
