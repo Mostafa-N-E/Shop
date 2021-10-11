@@ -4,6 +4,8 @@
 
 The website displays products. Users can add and remove products to their basket while also specifying the quantity of each item. They can then enter their address and choose Stripe to handle the payment processing.
 
+They have an account and can watch and follow the progress of their order through this way and also see the information and history of their orders.
+
 [![alt text](https://github.com/Mostafa-N-E/Shop-static/blob/main/static/img/view.jpg?raw=true "Logo")](https://github.com/Mostafa-N-E/Shop-static/blob/main/static/img/view.jpg)
 
 ---
