@@ -9,7 +9,8 @@ from django.core.paginator import Paginator
 
 class Home(generic.ListView):
     """
-
+        Home view
+        show Most visited products last month and categories
     """
     model = Product
     template_name = 'home.html'
@@ -26,16 +27,15 @@ class Home(generic.ListView):
 
 class Category_Products(generic.ListView):
     """
-
+        Show products of a specific category with pagination
     """
     model = Product
     template_name = 'product/products__category.html'
 
     def get(self, request, *args, **kwargs):
-        last_month = datetime.today() - timedelta(days=30)
         slug = self.kwargs['slug']
         products = Product.objects.filter(category__slug=slug)
-        paginator = Paginator(products, 1)  # Show 25 contacts per page.
+        paginator = Paginator(products, 15)  # Show 15 contacts per page.
         page_number = request.GET.get('page')
         products_list = paginator.get_page(page_number)
         category = Category.objects.get(slug=slug)
@@ -45,7 +45,7 @@ class Category_Products(generic.ListView):
 
 class ProductDetail(generic.DetailView):
     """
-
+        View the details of an product
     """
     model = Product
 
@@ -61,7 +61,7 @@ class ProductDetail(generic.DetailView):
 
 def change_lang(request):
     """
-
+        function for change active language
     """
     activate(request.GET.get('lang'))
     return redirect(request.GET.get('next'))

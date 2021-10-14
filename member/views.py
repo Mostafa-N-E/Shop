@@ -1,9 +1,8 @@
 from django.contrib.auth import REDIRECT_FIELD_NAME
-from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from .models import Customer, ContactUs
+from .models import Customer
 from django.views import generic
-from django.views.generic import TemplateView, UpdateView, CreateView
+from django.views.generic import TemplateView, UpdateView
 from order.models import Order
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import ProfileForm
@@ -11,10 +10,9 @@ from .forms import ProfileForm
 
 class LoginView(TemplateView):
     """
-            Login (this view only render template for LoginAPI) users
+        Login (this view only render template for LoginAPI) users
     """
     template_name = "member/login.html"
-
     redirect_field_name = REDIRECT_FIELD_NAME
 
     def get_redirect_url(self):
@@ -32,40 +30,35 @@ class LoginView(TemplateView):
 
 class RegisterView(TemplateView):
     """
-            registration (this view only render template for RegistrationAPI) users
+        registration (this view only render template for RegistrationAPI) users
     """
     template_name = "member/register.html"
 
 
 class PasswordChangeView(TemplateView):
     """
-            Enable users to change passwords via with this view
-            (this view only render template for PasswordChangeAPI)
+        Enable users to change passwords via with this view
+        (this view only render template for PasswordChangeAPI)
     """
     template_name = "member/password_change.html"
 
 
 class PasswordResetView(TemplateView):
     """
-            Enable users to recover passwords via email with this view
-            (this view only render template for PasswordResetAPI)
+        Enable users to recover passwords via email with this view
+        (this view only render template for PasswordResetAPI)
     """
     template_name = "member/password_reset.html"
 
 
-# class ProfileView(TemplateView):
-#     template_name = "member/customer/profile.html"
-
 class ProfileView(LoginRequiredMixin, generic.DetailView):
     """
-            Enable users visit their information with this view
+        Enable users visit their information with this view
     """
     model = Customer
     template_name = "member/customer/profile.html"
     login_url = "/member/login/"
     redirect_field_name = "next"
-
-    # raise_exception = True
 
     def get_object(self, queryset=None):
         customer = Customer.objects.get(pk=self.request.user.id)
@@ -79,11 +72,10 @@ class ProfileView(LoginRequiredMixin, generic.DetailView):
 
 class Profile_edit(LoginRequiredMixin, UpdateView):
     """
-            Enable users visit their information and edit Items that have access with this view
+        Enable users visit their information and edit Items that have access with this view
     """
     model = Customer
     form_class = ProfileForm
-    # form_class = CustomerForm
     template_name = 'member/customer/edit_info.html'
     login_url = "/member/login/"
 

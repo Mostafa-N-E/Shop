@@ -1,19 +1,15 @@
-from django.shortcuts import render, get_object_or_404, redirect, HttpResponse
-
-# Create your views here.
+from django.shortcuts import render, get_object_or_404, redirect
 from django.conf import settings
 from django.views import View
-
 from product.models import Product
 from decimal import Decimal
 from cupon.models import Cupon
-from django.utils import timezone
 from django.template.defaulttags import register
 
 
 class Basket(object):
     """
-
+        This class for store products that selected by user ( It does not matter login )
     """
     def __init__(self, request):
         self.session = request.session
@@ -94,9 +90,9 @@ class Basket(object):
 
 class BasketView(View):
     """
-
+        This view for show products that selected by user ( It does not matter login )
+        and show total price of basket and number of items
     """
-    # initial = {'key': 'value'}
     template_name = 'basket/basket.html'
 
     def get(self, request, *args, **kwargs):
@@ -112,13 +108,16 @@ class BasketView(View):
 
 
 def basket_add(request):
-    # color = request.POST.get('color', None)
-    # size = request.POST.get('size', None)
-    # Cart(request).add(product=get_object_or_404(Product, id=product_id), color=color, size=size)
+    """
+        This function for add product to user basket
+    """
     Basket(request).add(product=get_object_or_404(Product, id=request.GET.get('product_id')))
     return redirect(request.META.get('HTTP_REFERER'))
 
 def basket_remove(request):
+    """
+        This function for remove product ( with any number ) from user basket
+    """
     Basket(request).remove(
         product=get_object_or_404(Product, id=request.GET.get('product_id')))  # request.GET.keys['product_id']
     return redirect(request.META.get('HTTP_REFERER'))

@@ -1,5 +1,5 @@
 from django.http import HttpResponseForbidden, HttpResponseNotFound
-from django.shortcuts import render, HttpResponse, redirect
+from django.shortcuts import render, HttpResponse
 from django.views import View
 from django.views.generic import DetailView, ListView, CreateView, DeleteView
 from .models import Order, OrderItem, BaseOrder
@@ -12,7 +12,7 @@ from cupon.models import Cupon
 
 class OrderView(LoginRequiredMixin, View):
     """
-
+        Step before payment and finalize the purchase and check the order items and enter the coupon
     """
     template_name = 'order/order.html'
     login_url = "/member/login/"
@@ -29,20 +29,9 @@ class OrderView(LoginRequiredMixin, View):
         return render(request, self.template_name, context=context)
 
 
-# class RecentOrder(ListView):
-#     model = OrderItem
-#     context_object_name = 'orders'
-#     template_name = 'order/list_orders.html'
-#
-#     def get(self, request, *args, **kwargs):
-#         orders = OrderItem.objects.all().order_by('-order__created')[:5]
-#         context={'orders':orders, }
-#         return render(request, self.template_name, context=context)
-
-
 class ListOrder(LoginRequiredMixin, ListView):
     """
-
+        History of user orders and view their status
     """
     model = Order
     context_object_name = 'orders'
@@ -58,7 +47,7 @@ class ListOrder(LoginRequiredMixin, ListView):
 
 class DetailOrder(LoginRequiredMixin, DetailView):
     """
-
+        View the details of an order
     """
     model = Order
     context_object_name = 'order'
@@ -68,7 +57,7 @@ class DetailOrder(LoginRequiredMixin, DetailView):
 
 class CreateOrder(LoginRequiredMixin, CreateView):
     """
-
+        This class after successful payment submit order
     """
     model = OrderItem
     login_url = "/member/login/"
@@ -106,7 +95,7 @@ class CreateOrder(LoginRequiredMixin, CreateView):
 
 class DeleteOrder(LoginRequiredMixin, DeleteView):
     """
-
+        Delete order
     """
     model = BaseOrder
     login_url = "/member/login/"
@@ -114,7 +103,8 @@ class DeleteOrder(LoginRequiredMixin, DeleteView):
 
 def apply_cupon(request):
     """
-
+        Checking the validity of the coupon code and its activation
+        and thus applying a discount on the total amount of the order
     """
     if request.method == 'POST':
         cupon_id = request.POST.get('cupon_id')
@@ -133,20 +123,9 @@ def apply_cupon(request):
 
 @register.filter
 def get_range(int):
-    """
-
-    """
     return range(1, int + 1)
-
 
 @register.filter
 def get_number_of_order(status, customer_id):
-    """
-
-    """
     return Order.objects.filter(order_base__customer_id=customer_id).filter(order_base__status=status).count()
 
-# class UpdateOrder(UpdateView):
-#     model = Order
-#     fields = []
-#     template_name = 'order/update_order.html'
