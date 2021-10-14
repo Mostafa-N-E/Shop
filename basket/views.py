@@ -7,6 +7,7 @@ from cupon.models import Cupon
 from django.template.defaulttags import register
 
 
+
 class Basket(object):
     """
         This class for store products that selected by user ( It does not matter login )
@@ -88,6 +89,7 @@ class Basket(object):
     def get_total_price_after_discount(self):
         return self.get_total_price() - self.get_discount()
 
+
 class BasketView(View):
     """
         This view for show products that selected by user ( It does not matter login )
@@ -113,6 +115,7 @@ def basket_add(request):
     """
     Basket(request).add(product=get_object_or_404(Product, id=request.GET.get('product_id')))
     return redirect(request.META.get('HTTP_REFERER'))
+
 
 def basket_remove(request):
     """

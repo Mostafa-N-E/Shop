@@ -10,6 +10,8 @@ from django.template.defaulttags import register
 from django.contrib.auth.mixins import LoginRequiredMixin
 from cupon.models import Cupon
 
+
+
 class OrderView(LoginRequiredMixin, View):
     """
         Step before payment and finalize the purchase and check the order items and enter the coupon

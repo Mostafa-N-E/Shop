@@ -11,6 +11,7 @@ import secrets
 import string
 
 
+
 class Register(CreateAPIView):
     """
         Provides the possibility of registration

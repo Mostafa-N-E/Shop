@@ -8,6 +8,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import ProfileForm
 
 
+
 class LoginView(TemplateView):
     """
         Login (this view only render template for LoginAPI) users

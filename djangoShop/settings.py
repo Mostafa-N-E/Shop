@@ -112,9 +112,6 @@ DATABASES = {
     }
 }
 
-# Password validation
-# https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -130,8 +127,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-# Internationalization
-# https://docs.djangoproject.com/en/3.2/topics/i18n/
 
 LANGUAGE_CODE = 'fa-ir'
 
@@ -146,11 +141,7 @@ USE_TZ = True
 LANGUAGES = [
     ('fa', 'Persian'),
     ('en', 'English'),
-    # ('fa', _('Persian')),
-    # ('en', _('English')),
 ]
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
@@ -158,12 +149,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
-
-# # Config for custom user
-# AUTH_USER_MODEL = 'member.Customer'
-
-# Default primary key field type
-# https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
@@ -179,21 +164,15 @@ REST_FRAMEWORK = {
 }
 #
 SITE_ID = 1
-# REST_USE_JWT = True
-# JWT_AUTH_COOKIE = 'my-app-auth'
-# JWT_AUTH_REFRESH_COOKIE = 'my-refresh-token'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
-
-
-# Cart Session ID
 
 CART_SESSION_ID = 'cart'
 
 CRISPY_TEMPLATE_PACK = 'uni_form'
 
 SITE_ROOT = os.path.dirname(os.path.realpath(__name__))
+
 LOCALE_PATHS = (os.path.join(SITE_ROOT, 'locale'),)
 
-# AUTHENTICATION_BACKENDS = ['member.api.views.Register']
