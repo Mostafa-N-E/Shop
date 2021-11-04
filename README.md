@@ -41,10 +41,6 @@ That will create a new folder `venv` in your project directory. Next, install th
 ```
 pip install -r requirements.txt
 ```
-### before run project 
-Important Note: You must download the static file from this address 
-[Shop-static](https://github.com/Mostafa-N-E/Shop-static/)
-and put it in the main project file next to the file ‍‍‍`template`
 
 and execute this command
 ```
