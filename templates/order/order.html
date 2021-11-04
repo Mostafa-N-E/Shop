@@ -72,7 +72,7 @@
                         </div>
                         <div>
                             <a href="{% url 'customer_profile_edit' %}">
-                                <button type="button" class="btn btn-primary" style="border-radius: 25px;">
+                                <button type="button" class="btn btn-light">
                                     {% translate 'Change or edit the address' %}
                                 </button>
                             </a>
@@ -96,7 +96,7 @@
                     <hr>
                     <div class="d-flex justify-content-end">
                         <a href="{% url 'basket:basket' %}">
-                            <button type="button" class="btn btn-primary " style="border-radius: 25px;">
+                            <button type="button" class="btn btn-light ">
                                 {% translate 'Edit your backet' %}
                             </button>
                         </a>
@@ -108,22 +108,47 @@
             <div class="card mb-5">
                 <div class="card-body content">
                     {% if request.session.cupon_id is none %}
-                        <form id="apply" class="d-flex justify-content-between" method="post" value="{{ csrf_token }}">
-                            {% csrf_token %}
-                            <div class="form-check-inline col-9">
-                                {#                            <div class="row">#}
-                                <label for="cupon_id" class="mr-3">{% translate 'Please enter your cupon ' %} : </label>
-                                <input name="cupon_id" id="cupon_id" type="text" class="form-control-sm mr-3"
-                                       style="border-radius: 25px" placeholder="{% translate 'Cupon ID' %}" required>
-                                {#                                </div>#}
-                            </div>
-                            <div class="form-group">
-                                <button id="apply_cupon" type="submit"
-                                        style="border-radius: 25px;"
-                                        class="form-control btn btn-primary submit ">{% translate 'Apply cupon' %}
-                                </button>
-                            </div>
-                        </form>
+
+                        {% if device.is_medium or device.is_xsmall or device.is_small %}
+
+                            <form id="apply" class=" row " method="post" value="{{ csrf_token }}">
+                                {% csrf_token %}
+                                <div class=" col-md-12 col-lg-9 col-xl-10 text-center mt-3">
+                                    <label for="cupon_id" class="mr-3">{% translate 'Please enter your cupon ' %}
+                                        : </label>
+                                    <input name="cupon_id" id="cupon_id" type="text" class="form-control-sm mr-3"
+                                           style="border-radius: 25px" placeholder="{% translate 'Cupon ID' %}"
+                                           required>
+                                </div>
+                                <div class=" col-md-12 col-lg-3 col-xl-2 text-center form-group mt-3">
+                                    <button id="apply_cupon" type="submit"
+                                            class="btn btn-light submit ">{% translate 'Apply cupon' %}
+                                    </button>
+                                </div>
+                            </form>
+                        {% else %}
+                            <h1>{{ device.is_medium }}</h1>
+                            <form id="apply" class="d-flex justify-content-between" method="post"
+                                  value="{{ csrf_token }}">
+                                {% csrf_token %}
+                                <div class="form-check-inline col-9">
+                                    {#                            <div class="row">#}
+                                    <label for="cupon_id" class="mr-3">{% translate 'Please enter your cupon ' %}
+                                        : </label>
+                                    <input name="cupon_id" id="cupon_id" type="text" class="form-control-sm mr-3"
+                                           style="border-radius: 25px" placeholder="{% translate 'Cupon ID' %}"
+                                           required>
+                                    {#                                </div>#}
+                                </div>
+                                <div class="form-group">
+                                    <button id="apply_cupon" type="submit"
+                                            style="border-radius: 25px;"
+                                            class="form-control btn btn-primary submit ">{% translate 'Apply cupon' %}
+                                    </button>
+                                </div>
+                            </form>
+                        {% endif %}
+
                     {% else %}
                         <p class="text-center">
                             {% translate 'Your cupon has been applied' %}
@@ -145,27 +170,28 @@
                     <p class="text-center">
                         {% translate 'Shipping cost will be calculated based on the address, time and method of your chosen shipment and will be added to this amount.' %}
                     </p>
-                    <div class=" d-flex justify-content-between mb-3">
-                        <div>
+                    <div class="row mb-3">
+                        <div class="col-md-12 col-lg-7 col-xl-8">
                             {% translate 'Total price' %} : {{ price.get_total_price_after_discount }}
                         </div>
-                        <div>
-                            {% if customer.address and customer.postal_code and customer.city %}
-                                <a href="{% url 'order:order_create' %}">
-                                    <button type="button" class="btn btn-primary" style="border-radius: 25px;">
-                                        {% translate 'Continue the buying process' %}
-                                    </button>
-                                </a>
-                            {% else %}
-                                <a onclick="alert_address()" class="disabled">
-                                    <button type="button" class="btn btn-primary" style="border-radius: 25px;">
-                                        {% translate 'Continue the buying process' %}
-                                    </button>
-                                </a>
-                            {% endif %}
-                        </div>
+
                     </div>
                 </div>
+            </div>
+            <div class="text-center">
+                {% if customer.address and customer.postal_code and customer.city %}
+                    <a href="{% url 'order:order_create' %}">
+                        <button type="button" class="btn btn-light">
+                            {% translate 'Continue the buying process' %}
+                        </button>
+                    </a>
+                {% else %}
+                    <a onclick="alert_address()">
+                        <button type="button" class="btn btn-light">
+                            {% translate 'Continue the buying process' %}
+                        </button>
+                    </a>
+                {% endif %}
             </div>
         </div>
     </section><!-- End products Section -->
@@ -175,7 +201,9 @@
             <div class="modal-content">
                 <!-- Modal body -->
                 <div class="modal-body text-center ">
-                    <button type="button" class="close" data-dismiss="modal">×</button><br><hr>
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                    <br>
+                    <hr>
                     <h4 id="error-message">{% translate 'Error' %}</h4>
                 </div>
 
@@ -214,6 +242,7 @@
             $("#myModal").modal();
             // alert("You don't have address. ")
         };
+
         function alert_empty_basket() {
             $('#error-message').html("Your basket is empty. ")
             $("#myModal").modal();

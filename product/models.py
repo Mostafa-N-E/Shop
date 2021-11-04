@@ -44,8 +44,13 @@ class Product(models.Model):
     name = TranslatedField( models.CharField(max_length = 50, db_index = True, verbose_name = _("product name")) )
     slug = models.SlugField(max_length = 100, db_index = True, verbose_name = _("slug"))
     description = TranslatedField( models.TextField(blank = True, verbose_name = _("description")) )
-    colors = models.CharField(max_length = 200, verbose_name = _("Colors(delim = ', ')"), blank=True, null=True)
-    sizes = models.CharField(max_length = 200, verbose_name = _("Sizes(delim = ', ')"), blank=True, null=True)
+    # colors = models.CharField(max_length = 200, verbose_name = _("Colors(delim = ', ')"), blank=True, null=True)
+    Quality = (('AAA', 'Excellent'),
+               ('AA', 'very good'),
+               ('A', 'Good'),
+               ('B', 'medium'))
+    quality = models.CharField(choices=Quality, verbose_name=_("Quality"), max_length=50)
+    # sizes = models.CharField(max_length = 200, verbose_name = _("Sizes(delim = ', ')"), blank=True, null=True)
     price = models.DecimalField(max_digits = 10, decimal_places = 2, verbose_name = _("Price($)"))
     stock = models.PositiveIntegerField(verbose_name = _("In stock"))
     available = models.BooleanField(default = True, verbose_name = _("Available"))

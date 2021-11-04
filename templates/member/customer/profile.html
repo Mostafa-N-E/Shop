@@ -83,7 +83,7 @@
                     <hr>
                     <div class="d-flex justify-content-end">
                         <a href="{% url 'customer_profile_edit'%}">
-                            <button type="button" class="btn btn-primary " style="border-radius: 25px;">
+                            <button type="button" class="btn btn-light" style="border-radius: 25px;">
                                 {% translate 'Edit your profile' %}
                             </button>
                         </a>
@@ -112,8 +112,8 @@
                     <div>
                         <div class="card mb-5">
                             <div class="card-body content">
-                                <div class="d-flex justify-content-between">
-                                    <div>
+                                <div class="row">
+                                    <div class="col-md-12 col-lg-6 col-xl-6">
                                         <i class="icofont-rounded-right"></i>
                                         <strong>{% translate 'Order status' %}  :  </strong>
                                         {% if order.order_base.status == 1 %}
@@ -130,14 +130,14 @@
                                             {% translate 'active' %}
                                         {% endif %}
                                     </div>
-                                <div>
+                                <div class="col-md-12 col-lg-6 col-xl-6 ">
                                         <i class="icofont-rounded-right"></i>
                                         <strong>{% translate 'Total price of order' %}
                                             : </strong>{{ order.get_total_cost }}
                                     </div>
                                 </div>
                                 <hr>
-                                <div class="mb-3 d-flex justify-content-start">
+                                <div class="mb-3 d-flex justify-content-center">
                                     {% for item in order.order_items.all %}
                                         <div class="m-3">
                                             <a href="{% url 'products:product_detail' item.product.id %}">
@@ -149,19 +149,20 @@
                                     {% endfor %}
                                 </div>
                                 <hr>
-                                <div class="d-flex justify-content-between">
-                                    <div>
+                                <div class="row">
+                                    <div class="col-md-12 col-lg-9 col-xl-10">
                                         <i class="icofont-rounded-right"></i>
                                         <strong>{% translate 'Order registration date' %}
                                             : </strong>{{ order.order_base.created }}
                                     </div>
+                                    <div class="col-md-12 col-lg-3 col-xl-2 text-center ">
                                     <a href="{% url 'order:detail_order' order.id %}">
-                                        <button type="button" class="btn btn-primary "
+                                        <button type="button" class="btn btn-light"
                                                 style="border-radius: 25px;">
                                             {% translate 'More detail' %}
                                         </button>
                                     </a>
-
+</div>
                                 </div>
                             </div>
                         </div>

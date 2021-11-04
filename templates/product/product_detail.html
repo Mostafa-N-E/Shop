@@ -46,7 +46,7 @@
 
 {% block content %}
     <!-- ======= Portfolio Details ======= -->
-    <section id="portfolio-details" class="portfolio-details min-vh-100">
+    <section id="portfolio-details" class="portfolio-details min-vh-100" style="direction: ltr">
         <div class="container aos-init aos-animate" data-aos="fade-up">
             <div class="section-title">
                 {#                <img width="300px" style="margin-bottom: 4vh" src="{% static 'img/edit.svg' %}">#}
@@ -87,45 +87,48 @@
                     </div>
                 </div>
 
-                <div class="col-lg-5">
+                <div class="col-lg-5"
+                {% if LANGUAGE_CODE == 'fa' %}
+                    style="direction: rtl"
+                {% endif %}>
 
-                    <div class="content" style="margin-top: 4vh">
-                        <h3>{% translate 'Product information' %}</h3>
-                        <div class="row">
-                            <ul>
+                <div class="content" style="margin-top: 4vh">
+                    <h3>{% translate 'Product information' %}</h3>
+                    <div class="row">
+                        <ul>
+                            <li class="mt-4"><i class="icofont-rounded-right"></i>
+                                <strong> {% translate 'Product category' %} : </strong>{{ product.category }}
+                            </li>
+                            <li class="mt-4"><i class="icofont-rounded-right"></i>
+                                <strong> {% translate 'Product name' %} : </strong>{{ product.name }}
+                            </li>
+                            <li class="mt-4"><i class="icofont-rounded-right"></i>
+                                <strong> {% translate 'Product price' %} : </strong>{{ product.price }}
+                            </li>
+                            {% if not  product.discount == 0 %}
                                 <li class="mt-4"><i class="icofont-rounded-right"></i>
-                                    <strong> {% translate 'Product category' %} : </strong>{{ product.category }}
+                                    <strong> {% translate 'Product discount' %} : </strong>{{ product.discount }}
                                 </li>
-                                <li class="mt-4"><i class="icofont-rounded-right"></i>
-                                    <strong> {% translate 'Product name' %} : </strong>{{ product.name }}
-                                </li>
-                                <li class="mt-4"><i class="icofont-rounded-right"></i>
-                                    <strong> {% translate 'Product price' %} : </strong>{{ product.price }}
-                                </li>
-                                {% if not  product.discount == 0 %}
-                                    <li class="mt-4"><i class="icofont-rounded-right"></i>
-                                        <strong> {% translate 'Product discount' %} : </strong{{ product.discount }}
-                                    </li>
+                            {% endif %}
+                            <li class="mt-4"><i class="icofont-rounded-right"></i>
+                                <strong> {% translate 'Product available' %}</strong>:
+                                {% if  product.available %}
+                                    <i class='bx bx-check-circle' style='color:#1da200'></i>
+                                {% else %}
+                                    <i class='bx bx-x-circle' style='color:#d60000'></i>
                                 {% endif %}
-                                <li class="mt-4"><i class="icofont-rounded-right"></i>
-                                    <strong> {% translate 'Product available' %}</strong>:
-                                    {% if  product.available %}
-                                        <i class='bx bx-check-circle' style='color:#1da200'  ></i>
-                                    {% else %}
-                                        <i class='bx bx-x-circle' style='color:#d60000'  ></i>
-                                    {% endif %}
-                                </li>
-                                <li class="mt-4"><i class="icofont-rounded-right"></i>
-                                    <strong>{% translate 'Description' %} :</strong>
-                                    {{ product.description }}
-                                </li>
-                            </ul>
-                        </div>
+                            </li>
+                            <li class="mt-4"><i class="icofont-rounded-right"></i>
+                                <strong>{% translate 'Description' %} :</strong>
+                                {{ product.description }}
+                            </li>
+                        </ul>
                     </div>
-
                 </div>
 
             </div>
+
+        </div>
     </section><!-- End Portfolio Details -->
 
 {% endblock %}

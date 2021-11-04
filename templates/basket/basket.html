@@ -117,20 +117,20 @@
                         <p class="text-center">
                             {% translate 'Shipping cost will be calculated based on the address, time and method of your chosen shipment and will be added to this amount.' %}
                         </p>
-                        <div class="pagination d-flex justify-content-between mb-3">
-                            <div>
+                        <div class="pagination row mb-3">
+                            <div class="col-md-12 col-lg-9 col-xl-10">
                                 {% translate 'Total price' %} : {{ price.get_total_price_after_discount }}
-                            </div>
-                            <div>
-                                <a href="{% url 'order:order' %}">
-                                    <button type="button" class="btn btn-primary" style="border-radius: 25px;">
-                                        {% translate 'Continue the buying process' %}
-                                    </button>
-                                </a>
                             </div>
                         </div>
                     </div>
                 </div>
+                <div class="col-md-12 col-lg-3 col-xl-2 text-center">
+                        <a href="{% url 'order:order' %}">
+                            <button type="button" class="btn btn-light" style="border-radius: 25px;">
+                                {% translate 'Continue the buying process' %}
+                            </button>
+                        </a>
+                    </div>
                 </div>
             {% else %}
                 <div class="card mb-5">
@@ -153,7 +153,9 @@
             <div class="modal-content">
                 <!-- Modal body -->
                 <div class="modal-body text-center ">
-                    <button type="button" class="close" data-dismiss="modal">×</button><br><hr>
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                    <br>
+                    <hr>
                     <h4 id="error-message">{% translate 'Error' %}</h4>
                 </div>
 
